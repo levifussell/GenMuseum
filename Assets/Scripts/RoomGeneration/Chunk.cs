@@ -2,8 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class ChunkData
+{
+
+}
+
 public class Chunk : MonoBehaviour
 {
+
     #region parameters
     public Vector3Int chunkPos { get; private set; }
     #endregion
