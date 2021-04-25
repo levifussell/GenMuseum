@@ -9,6 +9,7 @@ public class PaintingSpawner : MonoBehaviour
     [SerializeField] [Range(0.0f, 10.0f)] float _maxWidth = 0.3f;
     [SerializeField] [Range(0.0f, 9.0f)] float _minHeight = 0.1f;
     [SerializeField] [Range(0.0f, 10.0f)] float _maxHeight = 0.3f;
+    [SerializeField] bool spawnPaintingOnStart = true;
     #endregion
 
     #region parameters
@@ -34,7 +35,9 @@ public class PaintingSpawner : MonoBehaviour
     {
         ChoosePaintingParameters();
         CreatePaintingStand();
-        SpawnPainting();
+
+        if(spawnPaintingOnStart)
+            SpawnPainting();
     }
 
     private void OnDrawGizmos()
@@ -69,7 +72,9 @@ public class PaintingSpawner : MonoBehaviour
 
     private void CreatePaintingStand()
     {
-        float nailWidth = 0.01f;
+        float nailWidth = 0.02f;
+
+        // nail left.
 
         GameObject nailLeft = GameObject.CreatePrimitive(PrimitiveType.Cube);
         nailLeft.transform.localScale = Vector3.one * nailWidth;
@@ -78,12 +83,16 @@ public class PaintingSpawner : MonoBehaviour
             -Vector3.right * ((spawnWidth - nailWidth) / 2.0f - Painting.FRAME_WIDTH) +
             Vector3.up * ((spawnHeight - nailWidth) / 2.0f - Painting.FRAME_WIDTH));
 
+        // nail right.
+
         GameObject nailRight = GameObject.CreatePrimitive(PrimitiveType.Cube);
         nailRight.transform.localScale = Vector3.one * nailWidth;
         nailRight.transform.SetParent(this.transform);
         nailRight.transform.position = this.transform.position + this.transform.rotation * (
             Vector3.right * ((spawnWidth - nailWidth) / 2.0f - Painting.FRAME_WIDTH) +
             Vector3.up * ((spawnHeight - nailWidth) / 2.0f - Painting.FRAME_WIDTH));
+
+        // back painting.
     }
 
     public void SpawnPainting()
