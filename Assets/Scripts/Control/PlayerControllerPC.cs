@@ -13,6 +13,7 @@ public class PlayerControllerPC : MonoBehaviour
     #region parameters
     Camera camera;
     Rigidbody rigidbody;
+    CapsuleCollider playerCollider;
 
     Rigidbody grabbedObject = null;
     FixedJoint grabJoint = null;
@@ -26,23 +27,51 @@ public class PlayerControllerPC : MonoBehaviour
     {
         camera = GetComponentInChildren<Camera>();
         rigidbody = GetComponent<Rigidbody>();
+
+        playerCollider = GetComponent<CapsuleCollider>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        this.transform.position = new Vector3(
+            this.transform.position.x,
+            playerCollider.height * 0.5f * this.transform.localScale.y,
+            this.transform.position.z);
+
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // positional moveoment.
+        // positional movement.
+
+        this.rigidbody.velocity = Vector3.zero;
 
         if (Input.GetKey(KeyCode.W))
-            this.transform.position += this.transform.forward * speedPos * Time.deltaTime;
-        else if (Input.GetKey(KeyCode.S))
-            this.transform.position -= this.transform.forward * speedPos * Time.deltaTime;
+        {
+            this.rigidbody.velocity += this.transform.forward;
+        }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+
+            this.rigidbody.velocity += -this.transform.forward;
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+
+            this.rigidbody.velocity += this.transform.right;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+
+            this.rigidbody.velocity += -this.transform.right;
+        }
+
+        this.rigidbody.velocity = this.rigidbody.velocity.normalized * speedPos;
 
         // rotational movement.
 
@@ -82,6 +111,9 @@ public class PlayerControllerPC : MonoBehaviour
         // cast a ray forward until it hits something.
         if(Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hitInfo, grabDistMax, ~0, QueryTriggerInteraction.Ignore))
         {
+            if (hitInfo.rigidbody == null)
+                return;
+
             Painting p = hitInfo.rigidbody.GetComponent<Painting>();
 
             if(p != null)

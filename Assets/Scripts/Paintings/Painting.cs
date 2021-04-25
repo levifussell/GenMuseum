@@ -18,6 +18,7 @@ public class Painting : MonoBehaviour
     private static Painting baseObjectPainting = null;
     GameObject canvas = null;
     GameObject frameTop = null;
+    GameObject frameBottom = null;
     GameObject painting = null;
     #endregion
 
@@ -57,6 +58,7 @@ public class Painting : MonoBehaviour
         painting.height = height;
         painting.canvas = GameObject.CreatePrimitive(PrimitiveType.Cube);
         painting.frameTop = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        painting.frameBottom = GameObject.CreatePrimitive(PrimitiveType.Cube);
         painting.painting = GameObject.CreatePrimitive(PrimitiveType.Cube);
         obj.SetActive(true);
 
@@ -65,10 +67,11 @@ public class Painting : MonoBehaviour
 
     private void CreateProceduralPainting()
     {
-        float canvasWidth = 0.2f * DEPTH;
+        float canvasWidth = 0.3f * DEPTH;
+        // canvas
 
         UnityEngine.Profiling.Profiler.BeginSample("Painting::CreateCanvas");
-        // canvas
+
         canvas.transform.localScale = new Vector3(width, height, canvasWidth);
         canvas.transform.SetParent(this.transform);
         canvas.transform.localPosition = new Vector3(0.0f, 0.0f, (DEPTH + canvasWidth * 0.5f) / 2.0f);
@@ -76,18 +79,28 @@ public class Painting : MonoBehaviour
 
         UnityEngine.Profiling.Profiler.EndSample();
 
-        UnityEngine.Profiling.Profiler.BeginSample("Painting::CreateFrame");
         // frame.
+
+        UnityEngine.Profiling.Profiler.BeginSample("Painting::CreateFrame");
+
             // top.
         frameTop.transform.localScale = new Vector3(width, FRAME_WIDTH, FRAME_WIDTH);
         frameTop.transform.SetParent(this.transform);
         frameTop.transform.localPosition = new Vector3(0.0f, (height - FRAME_WIDTH) / 2.0f, 0.0f);
         frameTop.transform.localRotation = Quaternion.identity;
 
+            // bottom.
+        frameBottom.transform.localScale = new Vector3(width, FRAME_WIDTH, FRAME_WIDTH);
+        frameBottom.transform.SetParent(this.transform);
+        frameBottom.transform.localPosition = new Vector3(0.0f, -(height - FRAME_WIDTH) / 2.0f, 0.0f);
+        frameBottom.transform.localRotation = Quaternion.identity;
+
         UnityEngine.Profiling.Profiler.EndSample();
 
-        UnityEngine.Profiling.Profiler.BeginSample("Painting::CreatePainting");
         // painting.
+
+        UnityEngine.Profiling.Profiler.BeginSample("Painting::CreatePainting");
+
         painting.transform.localScale = new Vector3(width * 0.99f, height * 0.99f, canvasWidth);
         painting.transform.SetParent(this.transform);
         painting.transform.localPosition = new Vector3(0.0f, 0.0f, (DEPTH + canvasWidth) / 2.0f);
