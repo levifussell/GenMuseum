@@ -4,6 +4,22 @@ using UnityEngine;
 
 public class PaintingSpawner : MonoBehaviour
 {
+    #region data
+    Material _backShadowMaterial = null;
+    Material backShadowMaterial
+    {
+        get
+        {
+            if(_backShadowMaterial == null)
+            {
+                _backShadowMaterial = Resources.Load<Material>("Materials/Paintings/BackShadow");
+            }
+
+            return _backShadowMaterial;
+        }
+    }
+    #endregion
+
     #region serialized parameters
     [SerializeField] [Range(0.0f, 9.0f)] float _minWidth = 0.1f;
     [SerializeField] [Range(0.0f, 10.0f)] float _maxWidth = 0.3f;
@@ -92,7 +108,16 @@ public class PaintingSpawner : MonoBehaviour
             Vector3.right * ((spawnWidth - nailWidth) / 2.0f - Painting.FRAME_WIDTH) +
             Vector3.up * ((spawnHeight - nailWidth) / 2.0f - Painting.FRAME_WIDTH));
 
-        // back painting.
+        // back painting shadow.
+        GameObject backShadow = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        Destroy(backShadow.GetComponent<Collider>());
+        backShadow.transform.localScale = new Vector3(spawnWidth, spawnHeight, 1.0f);
+        backShadow.transform.SetParent(this.transform);
+        backShadow.transform.position = this.transform.position + this.transform.rotation * (
+            -Vector3.forward * Painting.DEPTH / 2.0f);
+        backShadow.transform.localRotation = Quaternion.AngleAxis(180.0f, Vector3.up);
+        Renderer paintRenderer = backShadow.GetComponent<Renderer>();
+        paintRenderer.material = backShadowMaterial;
     }
 
     public void SpawnPainting()
