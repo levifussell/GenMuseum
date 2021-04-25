@@ -3,13 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class StartRoom : Room
 {
 
     #region parameters
     GameObject startRoomParent;
     GameObject normalRoomParent;
+    GameObject startRoomStorage;
     public bool isStartRoom { get; private set; }
+
+    private List<Rigidbody> objectsInRoom = new List<Rigidbody>();
+    public int objectCountInRoom { get => objectsInRoom.Count; }
 
     PlayerControllerPC player;
     Vector3 diffToPlayerNorm { get => (this.transform.position - player.transform.position).normalized; }
@@ -25,6 +33,7 @@ public class StartRoom : Room
     {
         startRoomParent = this.transform.Find("StartRoomParent").gameObject;
         normalRoomParent = this.transform.Find("NormalRoomParent").gameObject;
+        startRoomStorage = this.transform.Find("StartRoomStore").gameObject;
 
         Debug.Assert(startRoomParent != null);
         Debug.Assert(normalRoomParent != null);
@@ -34,6 +43,10 @@ public class StartRoom : Room
 
         ChildColliderCallback ccNormalRoom = normalRoomParent.AddComponent<ChildColliderCallback>();
         ccNormalRoom.onTriggerEnterCallback += OnStartRoomEnter;
+
+        ChildColliderCallback ccStartRoomStore = startRoomStorage.AddComponent<ChildColliderCallback>();
+        ccStartRoomStore.onTriggerEnterCallback += OnStartRoomStoreEnter;
+        ccStartRoomStore.onTriggerExitCallback += OnStartRoomStoreExit;
 
         ChangeToStartRoom();
     }
@@ -65,6 +78,22 @@ public class StartRoom : Room
         }
     }
 
+    private void OnStartRoomStoreEnter(Collider other, GameObject _)
+    {
+        if (objectsInRoom.Contains(other.attachedRigidbody))
+            return;
+
+        objectsInRoom.Add(other.attachedRigidbody);
+    }
+
+    private void OnStartRoomStoreExit(Collider other, GameObject _)
+    {
+        if (!objectsInRoom.Contains(other.attachedRigidbody))
+            return;
+
+        objectsInRoom.Remove(other.attachedRigidbody);
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
@@ -81,6 +110,11 @@ public class StartRoom : Room
         normalRoomParent.SetActive(true);
 
         OnStartRoomChange?.Invoke();
+
+        foreach(Rigidbody r in objectsInRoom)
+        {
+            r.gameObject.SetActive(false);
+        }
     }
 
     void ChangeToStartRoom()
@@ -90,6 +124,31 @@ public class StartRoom : Room
         startRoomParent.SetActive(true);
 
         OnStartRoomChange?.Invoke();
+
+        foreach(Rigidbody r in objectsInRoom)
+        {
+            r.gameObject.SetActive(true);
+        }
     }
     #endregion
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(StartRoom))]
+class E_StartRoom : Editor
+{
+    StartRoom startRoom;
+
+    private void OnEnable()
+    {
+        startRoom = (StartRoom)target;        
+    }
+
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+        EditorGUILayout.LabelField($"Objects in room: {startRoom.objectCountInRoom}");
+    }
+}
+#endif

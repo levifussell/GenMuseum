@@ -26,6 +26,7 @@ public class PaintingSpawner : MonoBehaviour
     [SerializeField] [Range(0.0f, 9.0f)] float _minHeight = 0.1f;
     [SerializeField] [Range(0.0f, 10.0f)] float _maxHeight = 0.3f;
     [SerializeField] bool spawnPaintingOnStart = true;
+    [SerializeField] bool isPaintingGoalPoint = false;
     #endregion
 
     #region parameters
@@ -42,6 +43,21 @@ public class PaintingSpawner : MonoBehaviour
     public Vector3 spawnPoint
     {
         get => this.transform.position;
+    }
+
+    /* Goal Painting */
+    Painting goalPainting = null;
+    int goalPaintingTriggerCount = 0;
+
+    LineRenderer goalLineVisual = null;
+    static Material _goalLineVisualMaterial = null;
+    static Material goalLineVisualMaterial
+    {
+        get
+        {
+            if(_goalLineVisualMaterial == null) { _goalLineVisualMaterial = Resources.Load<Material>("Materials/Paintings/GoalLine"); }
+            return _goalLineVisualMaterial;
+        }
     }
     #endregion
 
@@ -75,6 +91,52 @@ public class PaintingSpawner : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.matrix = Matrix4x4.TRS(spawnPoint, this.transform.rotation, Vector3.one);
         Gizmos.DrawWireCube(Vector3.zero, new Vector3(spawnWidth, spawnHeight, Painting.DEPTH));
+    }
+
+    /* Painting Goal */
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!isPaintingGoalPoint)
+            return;
+
+        Painting painting = other.GetComponentInParent<Painting>();
+        if (painting == null)
+            return;
+
+        // need to check for multiple triggers of same painting.
+        if (painting == goalPainting)
+            goalPaintingTriggerCount++;
+        else
+        {
+            goalPainting = painting;
+            goalPaintingTriggerCount = 1;
+            EnableGoalVisual();
+        }
+
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (!isPaintingGoalPoint)
+            return;
+
+        Painting painting = other.GetComponentInParent<Painting>();
+        if (painting == null)
+            return;
+
+        // need to check for multiple triggers of same painting.
+        if (painting == goalPainting)
+        {
+            goalPaintingTriggerCount--;
+            Debug.Assert(goalPaintingTriggerCount >= 0);
+        }
+
+        if(goalPaintingTriggerCount == 0)
+        {
+            goalPainting = null;
+            DisableGoalVisual();
+        }
     }
 
     #endregion
@@ -118,6 +180,27 @@ public class PaintingSpawner : MonoBehaviour
         backShadow.transform.localRotation = Quaternion.AngleAxis(180.0f, Vector3.up);
         Renderer paintRenderer = backShadow.GetComponent<Renderer>();
         paintRenderer.material = backShadowMaterial;
+
+        /* Goal painting */
+
+        if(isPaintingGoalPoint)
+        {
+            // add trigger for detecting paintings.
+            BoxCollider boxCollider = this.gameObject.AddComponent<BoxCollider>();
+            boxCollider.size = new Vector3(spawnWidth, spawnHeight, Painting.DEPTH * 2.0f);
+            boxCollider.isTrigger = true;
+
+            // add line renderer for visualising goal.
+            GameObject goalVisual = new GameObject("Goal visual");
+            goalVisual.transform.SetParent(this.transform);
+            goalVisual.transform.localPosition = Vector3.zero;
+            goalVisual.transform.localRotation = Quaternion.AngleAxis(180.0f, this.transform.up);
+            goalLineVisual = goalVisual.AddComponent<LineRenderer>();
+
+            BuildGoalVisual();
+
+            DisableGoalVisual();
+        }
     }
 
     public void SpawnPainting()
@@ -127,5 +210,59 @@ public class PaintingSpawner : MonoBehaviour
 
         Painting.Init(spawnPoint, this.transform.rotation, spawnWidth, spawnHeight);
     }
+
+    /* Goal Painting */
+
+    private void BuildGoalVisual()
+    {
+        float offset = 0.03f;
+        float width = 0.015f;
+        float halfWidth = spawnWidth * 0.5f;
+        float halfHeight = spawnHeight * 0.5f;
+
+        goalLineVisual.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        goalLineVisual.receiveShadows = false;
+        goalLineVisual.alignment = LineAlignment.TransformZ;
+        goalLineVisual.loop = true;
+        goalLineVisual.startWidth = width;
+        goalLineVisual.endWidth = width;
+        goalLineVisual.positionCount = 8;
+        goalLineVisual.useWorldSpace = false;
+        goalLineVisual.SetPositions(new Vector3[8]
+        {
+            new Vector3(-halfWidth, -halfHeight - offset, 0.0f),
+            new Vector3(halfWidth, -halfHeight - offset, 0.0f),
+            new Vector3(halfWidth + offset, -halfHeight, 0.0f),
+            new Vector3(halfWidth + offset, halfHeight, 0.0f),
+            new Vector3(halfWidth, halfHeight + offset, 0.0f),
+            new Vector3(-halfWidth, halfHeight + offset, 0.0f),
+            new Vector3(-halfWidth - offset, halfHeight, 0.0f),
+            new Vector3(-halfWidth - offset, -halfHeight, 0.0f),
+        });
+        goalLineVisual.material = goalLineVisualMaterial;
+    }
+
+    public void EnableGoalVisual()
+    {
+        float goalScore = ComputeGoalScore();
+        goalLineVisual.material.color = Color.Lerp(Color.red, Color.green, goalScore * goalScore * goalScore);
+    }
+
+    public void DisableGoalVisual()
+    {
+        goalLineVisual.material.color = new Color(1.0f, 1.0f, 1.0f, 0.1f);
+    }
+
+    public float ComputeGoalScore()
+    {
+        float goalWidth = goalPainting != null ? goalPainting.width : 0.0f;
+        float goalHeight = goalPainting != null ? goalPainting.height : 0.0f;
+
+        float ratioWidth = Mathf.Min(goalWidth / (spawnWidth + 1e-8f), spawnWidth / (goalWidth + 1e-8f));
+        float ratioHeight = Mathf.Min(goalHeight / (spawnHeight + 1e-8f), spawnHeight / (goalHeight + 1e-8f));
+
+        return (ratioWidth + ratioHeight) * 0.5f;
+    }
+
     #endregion
 }
