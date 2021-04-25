@@ -29,6 +29,9 @@ public class GenerationManager : MonoBehaviour
     /* Player */
     Vector3Int lastPlayerChunkPosition = Vector3Int.zero;
 
+    /* Start Room */
+    StartRoom startRoom = null;
+
     #endregion
 
     #region unity methods
@@ -42,7 +45,7 @@ public class GenerationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(IsPlayerAtNewChunkPosition())
+        if(startRoom == null || IsPlayerAtNewChunkPosition())
         {
             UpdateVisibleChunks();
         }
@@ -144,6 +147,33 @@ public class GenerationManager : MonoBehaviour
         };
     }
 
+    List<Vector3Int> TrimChunksIfInStartRoom(List<Vector3Int> visibleChunks)
+    {
+        if(startRoom == null)
+        {
+            startRoom = FindObjectOfType<StartRoom>();
+            if(startRoom != null)
+                startRoom.OnStartRoomChange += UpdateVisibleChunks;
+        }
+
+        if(startRoom == null || startRoom.isStartRoom)
+        {
+            List<Vector3Int> trimmedVisibleChunks = new List<Vector3Int>();
+
+            foreach(Vector3Int chunkPos in visibleChunks)
+            {
+                if(chunkPos.x >= 0)
+                {
+                    trimmedVisibleChunks.Add(chunkPos);
+                }
+            }
+
+            return trimmedVisibleChunks;
+        }
+
+        return visibleChunks;
+    }
+
     bool IsPlayerAtNewChunkPosition()
     {
         Vector3Int currentPlayerChunkPosition = WorldPositionToNearestLocalChunkPosition(player.position);
@@ -159,6 +189,8 @@ public class GenerationManager : MonoBehaviour
     void UpdateVisibleChunks()
     {
         List<Vector3Int> newVisibleChunksPos = GetVisibleChunkPositionsFromPosition(lastPlayerChunkPosition);
+        newVisibleChunksPos = TrimChunksIfInStartRoom(newVisibleChunksPos);
+
         List<Chunk> newChunks = new List<Chunk>();
 
         // check which old chunks should be disabled or added.
@@ -189,9 +221,10 @@ public class GenerationManager : MonoBehaviour
 
         visibleChunks = newChunks;
 
-        Debug.Assert(visibleChunks.Count == 9); // always 9 visible chunks (for now).
+        Debug.Assert(visibleChunks.Count == 9 || (visibleChunks.Count == 6 && (startRoom == null || (startRoom != null && startRoom.isStartRoom))));
     }
 
+    // TODO.
     void UpdateChunkAtPositionRoomNeighbours(Vector3Int chunkPos)
     {
         // check that the chunk we are updating has neighbours.

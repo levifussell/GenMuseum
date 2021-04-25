@@ -4,6 +4,7 @@ using UnityEngine;
 
 public static class ChunkData
 {
+    #region room data
     private static string roomPrefabDirectory = "Prefabs/Rooms-P/";
     private static GameObject[] _roomPrefabs = null;
     private static GameObject[] roomPrefabs
@@ -14,6 +15,20 @@ public static class ChunkData
             return _roomPrefabs;
         }
     }
+
+    private static string roomPrefabStartFile = "Prefabs/StartRoom";
+    private static GameObject _startRoomPrefab = null;
+    public static GameObject startRoomPrefab
+    {
+        get
+        {
+            if(_startRoomPrefab == null) { _startRoomPrefab = Resources.Load<GameObject>(roomPrefabStartFile); }
+            return _startRoomPrefab;
+        }
+    }
+    #endregion
+
+
 
     #region chunk stats
     public static int ROOMS_PER_CHUNK_DIM = 3;
@@ -127,14 +142,26 @@ public class Chunk : MonoBehaviour
         {
             for(int y = 0; y < ChunkData.ROOMS_PER_CHUNK_DIM; ++y)
             {
-                GameObject roomXY = GameObject.Instantiate(ChunkData.GetRandomRoomPrefab());
+                GameObject roomXY; 
+
+                // centre-most chunk is the special start room.
+                if(ChunkPos == Vector3Int.zero && x == 0 && y == 0)
+                {
+                    roomXY = GameObject.Instantiate(ChunkData.startRoomPrefab);
+                    chunk.rooms[x, y] = roomXY.AddOrGetComponent<StartRoom>();        
+                }
+                // normal room.
+                else
+                {
+                    roomXY = GameObject.Instantiate(ChunkData.GetRandomRoomPrefab());
+                    chunk.rooms[x, y] = roomXY.AddOrGetComponent<Room>();        
+                }
+
                 roomXY.transform.SetParent(chunkObj.transform);
                 roomXY.transform.localPosition = new Vector3(
                     (-halfRoomDim + x) * ChunkData.ROOM_WIDTH,
                     0.0f,
                     (-halfRoomDim + y) * ChunkData.ROOM_WIDTH);
-
-                chunk.rooms[x, y] = roomXY.AddOrGetComponent<Room>();        
             }
         }
 

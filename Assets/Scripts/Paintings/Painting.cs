@@ -43,9 +43,6 @@ public class Painting : MonoBehaviour
         {
             baseObject = new GameObject("painting");
             baseObjectPainting = baseObject.AddComponent<Painting>();
-            //baseObjectPainting.canvas = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            //baseObjectPainting.frameTop = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            //baseObjectPainting.painting = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
             baseObject.AddComponent<Rigidbody>();
 
@@ -58,9 +55,6 @@ public class Painting : MonoBehaviour
         Painting painting = obj.GetComponent<Painting>();
         painting.width = width;
         painting.height = height;
-        //painting.canvas = GameObject.Instantiate(baseObjectPainting.canvas);
-        //painting.frameTop = GameObject.Instantiate(baseObjectPainting.frameTop);
-        //painting.painting = GameObject.Instantiate(baseObjectPainting.painting);
         painting.canvas = GameObject.CreatePrimitive(PrimitiveType.Cube);
         painting.frameTop = GameObject.CreatePrimitive(PrimitiveType.Cube);
         painting.painting = GameObject.CreatePrimitive(PrimitiveType.Cube);
