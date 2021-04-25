@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Abyss
+  m_Name: AbyssRoom
   m_Shader: {fileID: 4800000, guid: e882179a6bc30b64cb634579c5b4838c, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4

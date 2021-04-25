@@ -1,4 +1,4 @@
-﻿Shader "Custom/Abyss"
+﻿Shader "Custom/AbyssRadius"
 {
     Properties
     {
