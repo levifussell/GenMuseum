@@ -377,6 +377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedPos: 3
   speedRot: 90
+  mouseSensitivity: 2
 --- !u!54 &1967295031
 Rigidbody:
   m_ObjectHideFlags: 0

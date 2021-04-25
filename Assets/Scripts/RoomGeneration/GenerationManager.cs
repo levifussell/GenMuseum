@@ -192,6 +192,7 @@ public class GenerationManager : MonoBehaviour
         Debug.Assert(visibleChunks.Count == 9); // always 9 visible chunks (for now).
     }
 
+    // TODO.
     void UpdateChunkAtPositionRoomNeighbours(Vector3Int chunkPos)
     {
         // check that the chunk we are updating has neighbours.
