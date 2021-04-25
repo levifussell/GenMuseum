@@ -5,8 +5,8 @@ using UnityEngine;
 public class Painting : MonoBehaviour
 {
     #region serialized parameters
-    [SerializeField] float width = 0.1f;
-    [SerializeField] float height = 0.1f;
+    [SerializeField] public float width = 0.1f;
+    [SerializeField] public float height = 0.1f;
     #endregion
 
     #region parameters

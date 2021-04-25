@@ -15,8 +15,9 @@ public class PlayerControllerPC : MonoBehaviour
     Rigidbody rigidbody;
     CapsuleCollider playerCollider;
 
+    Rigidbody cameraGrabAnchor = null;
     Rigidbody grabbedObject = null;
-    FixedJoint grabJoint = null;
+    ConfigurableJoint grabJoint = null;
 
     public Vector3 lineOfSightNormal { get => this.camera == null ? Vector3.zero : this.camera.transform.forward; }
     #endregion
@@ -36,7 +37,7 @@ public class PlayerControllerPC : MonoBehaviour
     {
         this.transform.position = new Vector3(
             this.transform.position.x,
-            playerCollider.height * 0.5f * this.transform.localScale.y,
+            playerCollider.height * 0.6f * this.transform.localScale.y,
             this.transform.position.z);
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -118,9 +119,21 @@ public class PlayerControllerPC : MonoBehaviour
 
             if(p != null)
             {
+                if(cameraGrabAnchor == null)
+                {
+                    GameObject grabAnchor = new GameObject("GrabAnchor");
+                    grabAnchor.transform.SetParent(camera.transform);
+                    grabAnchor.transform.position = hitInfo.point;
+                    cameraGrabAnchor = grabAnchor.AddComponent<Rigidbody>();
+                    cameraGrabAnchor.isKinematic = true;
+                    cameraGrabAnchor.mass = 10.0f;
+                }
+
                 grabbedObject = p.GetComponent<Rigidbody>();
-                grabJoint = this.camera.gameObject.AddComponent<FixedJoint>();
-                grabJoint.connectedBody = grabbedObject;
+                grabbedObject.useGravity = false;
+                grabJoint = cameraGrabAnchor.gameObject.AddComponent<ConfigurableJoint>();
+                ConfigurableJointExtensions.CustomSpringPositionRotationJointAutoPair(grabJoint,
+                    grabbedObject, 300.0f, 10.0f, 100.0f, 1.0f, 100.0f);
             }
         }
     }
@@ -130,6 +143,7 @@ public class PlayerControllerPC : MonoBehaviour
         if(grabbedObject != null)
         {
             Destroy(grabJoint);
+            grabbedObject.useGravity = true;
             grabbedObject.WakeUp();
             grabbedObject = null;
         }
