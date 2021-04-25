@@ -13,11 +13,6 @@ using UnityEditor;
 public class GenerationManager : MonoBehaviour
 {
     #region serialized parameters
-    [Header("Chunk Parameters")]
-    [SerializeField] Chunk chunkPrefab = null;
-    [SerializeField] int chunkRoomCount = 3;
-    [SerializeField] float roomWidth = 10.0f; // TODO: can get this from the mesh data later.
-
     [SerializeField] Transform player;
 
     [Header("Debug")]
@@ -26,7 +21,6 @@ public class GenerationManager : MonoBehaviour
 
     #region parameters
     /* Chunks */
-    public float chunkWidth { get => chunkRoomCount * roomWidth; }
     public int chunksLoaded { get => loadedChunks.Count; }
     public int chunksVisible { get => visibleChunks.Count; }
     List<Chunk> visibleChunks = new List<Chunk>();
@@ -58,14 +52,14 @@ public class GenerationManager : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(LocalChunkPositionToWorldPosition(lastPlayerChunkPosition), Vector3.one * chunkWidth * 0.1f);
+        Gizmos.DrawWireCube(LocalChunkPositionToWorldPosition(lastPlayerChunkPosition), Vector3.one * ChunkData.CHUNK_WIDTH * 0.1f);
 
         if(showLoadedChunks)
         {
             Gizmos.color = Color.red;
             foreach(Vector3Int chunkPos in loadedChunks.Keys)
             {
-                Gizmos.DrawWireSphere(LocalChunkPositionToWorldPosition(chunkPos), chunkWidth * 0.5f);
+                Gizmos.DrawWireCube(LocalChunkPositionToWorldPosition(chunkPos), Vector3.one * ChunkData.CHUNK_WIDTH);
             }
         }
     }
@@ -79,27 +73,27 @@ public class GenerationManager : MonoBehaviour
     {
         Vector3 positionLocal = this.transform.InverseTransformPoint(worldPosition);
         return new Vector3Int(
-            Mathf.FloorToInt(positionLocal.x / chunkWidth),
+            Mathf.FloorToInt(positionLocal.x / ChunkData.CHUNK_WIDTH),
             0,
-            Mathf.FloorToInt(positionLocal.z / chunkWidth)
+            Mathf.FloorToInt(positionLocal.z / ChunkData.CHUNK_WIDTH)
             );
     }
     Vector3Int WorldPositionToNearestLocalChunkPosition(Vector3 worldPosition)
     {
         Vector3 positionLocal = this.transform.InverseTransformPoint(worldPosition);
         return new Vector3Int(
-            Mathf.RoundToInt(positionLocal.x / chunkWidth),
+            Mathf.RoundToInt(positionLocal.x / ChunkData.CHUNK_WIDTH),
             0,
-            Mathf.RoundToInt(positionLocal.z / chunkWidth)
+            Mathf.RoundToInt(positionLocal.z / ChunkData.CHUNK_WIDTH)
             );
     }
 
     Vector3 LocalChunkPositionToLocalPosition(Vector3Int chunkPosition)
     {
         return new Vector3(
-            chunkPosition.x * chunkWidth,
+            chunkPosition.x * ChunkData.CHUNK_WIDTH,
             0.0f, 
-            chunkPosition.z * chunkWidth
+            chunkPosition.z * ChunkData.CHUNK_WIDTH
             );
     }
 
@@ -113,11 +107,10 @@ public class GenerationManager : MonoBehaviour
 
     Chunk CreateNewChunkFromPosition(Vector3Int chunkPos)
     {
-        Chunk chunk = GameObject.Instantiate<Chunk>(chunkPrefab);
-        chunk.transform.SetParent(this.transform);
-        chunk.Init(
+        Chunk chunk = Chunk.Create(
             LocalChunkPositionToLocalPosition(chunkPos),
             chunkPos);
+        chunk.transform.SetParent(this.transform);
         loadedChunks.Add(chunkPos, chunk);
         return chunk;
     }
@@ -197,6 +190,34 @@ public class GenerationManager : MonoBehaviour
         visibleChunks = newChunks;
 
         Debug.Assert(visibleChunks.Count == 9); // always 9 visible chunks (for now).
+    }
+
+    void UpdateChunkAtPositionRoomNeighbours(Vector3Int chunkPos)
+    {
+        // check that the chunk we are updating has neighbours.
+        Vector3Int northNeighbour = chunkPos - new Vector3Int(0, 0, 1);
+        Vector3Int eastNeighbour = chunkPos - new Vector3Int(1, 0, 0);
+        Vector3Int southNeighbour = chunkPos - new Vector3Int(0, 0, -1);
+        Vector3Int westNeighbour = chunkPos - new Vector3Int(-1, 0, 0);
+
+        if( !loadedChunks.ContainsKey(northNeighbour) || 
+            !loadedChunks.ContainsKey(eastNeighbour) || 
+            !loadedChunks.ContainsKey(southNeighbour) || 
+            !loadedChunks.ContainsKey(westNeighbour))
+        {
+            Debug.LogError("Tried to update room neighbours for chunk with no neighbours.");
+            return;
+        }
+
+        Chunk chunk = loadedChunks[chunkPos];
+
+        for(int x = 0; x < ChunkData.ROOMS_PER_CHUNK_DIM; ++x)
+        {
+            for(int y = 0; y < ChunkData.ROOMS_PER_CHUNK_DIM; ++y)
+            {
+
+            }
+        }
     }
 
     #endregion

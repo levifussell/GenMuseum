@@ -1,5 +1,522 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &950462446015276045
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5373334329448474985}
+  - component: {fileID: 8524208949377808040}
+  m_Layer: 0
+  m_Name: PaintStand (15)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5373334329448474985
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950462446015276045}
+  m_LocalRotation: {x: -0, y: 0.7071877, z: -0, w: 0.7070259}
+  m_LocalPosition: {x: -2.92, y: 1.126, z: 2.1}
+  m_LocalScale: {x: 0.020000005, y: 0.02, z: 0.020000005}
+  m_Children: []
+  m_Father: {fileID: 3508047621100809646}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 90.013, z: 0}
+--- !u!114 &8524208949377808040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950462446015276045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c0702862a764c4b93c94c518b85209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minWidth: 0.43
+  _maxWidth: 1.82
+  _minHeight: 0.33
+  _maxHeight: 1.66
+--- !u!1 &1307697482535015282
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7050832263252595870}
+  - component: {fileID: 1940670041647846066}
+  m_Layer: 0
+  m_Name: PaintStand (16)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7050832263252595870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307697482535015282}
+  m_LocalRotation: {x: -0, y: 0.7071877, z: -0, w: 0.7070259}
+  m_LocalPosition: {x: -2.92, y: 1.126, z: -2.047}
+  m_LocalScale: {x: 0.020000005, y: 0.02, z: 0.020000005}
+  m_Children: []
+  m_Father: {fileID: 3508047621100809646}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 90.013, z: 0}
+--- !u!114 &1940670041647846066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307697482535015282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c0702862a764c4b93c94c518b85209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minWidth: 0.43
+  _maxWidth: 1.82
+  _minHeight: 0.33
+  _maxHeight: 1.66
+--- !u!1 &2340209906441684054
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7891763221914553842}
+  - component: {fileID: 8465408089622736131}
+  m_Layer: 0
+  m_Name: PaintStand (11)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7891763221914553842
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2340209906441684054}
+  m_LocalRotation: {x: -0, y: -0.000115752206, z: -0, w: -1}
+  m_LocalPosition: {x: 1.989, y: 1.126, z: -4.914}
+  m_LocalScale: {x: 0.020000005, y: 0.02, z: 0.020000005}
+  m_Children: []
+  m_Father: {fileID: 3508047621100809646}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: -359.987, z: 0}
+--- !u!114 &8465408089622736131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2340209906441684054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c0702862a764c4b93c94c518b85209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minWidth: 0.43
+  _maxWidth: 1.82
+  _minHeight: 0.33
+  _maxHeight: 1.66
+--- !u!1 &2387095825660501264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7908649514038575329}
+  - component: {fileID: 7892842474603672981}
+  m_Layer: 0
+  m_Name: PaintStand (10)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7908649514038575329
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2387095825660501264}
+  m_LocalRotation: {x: -0, y: -0.000115752206, z: -0, w: -1}
+  m_LocalPosition: {x: -1.991, y: 1.126, z: -4.913}
+  m_LocalScale: {x: 0.020000005, y: 0.02, z: 0.020000005}
+  m_Children: []
+  m_Father: {fileID: 3508047621100809646}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: -359.987, z: 0}
+--- !u!114 &7892842474603672981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2387095825660501264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c0702862a764c4b93c94c518b85209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minWidth: 0.43
+  _maxWidth: 1.82
+  _minHeight: 0.33
+  _maxHeight: 1.66
+--- !u!1 &2547019731452322384
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6625248941510695492}
+  - component: {fileID: 1035164444727272938}
+  m_Layer: 0
+  m_Name: PaintStand (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6625248941510695492
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2547019731452322384}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.00011502205}
+  m_LocalPosition: {x: 3.95, y: 1.126, z: 4.905}
+  m_LocalScale: {x: 0.020000005, y: 0.02, z: 0.020000005}
+  m_Children: []
+  m_Father: {fileID: 3508047621100809646}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: -179.98701, z: 0}
+--- !u!114 &1035164444727272938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2547019731452322384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c0702862a764c4b93c94c518b85209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minWidth: 0.43
+  _maxWidth: 1.82
+  _minHeight: 0.33
+  _maxHeight: 1.66
+--- !u!1 &3140584952497086460
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4395593691788504928}
+  - component: {fileID: 565273628495922982}
+  m_Layer: 0
+  m_Name: PaintStand (9)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4395593691788504928
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3140584952497086460}
+  m_LocalRotation: {x: -0, y: -0.000115752206, z: -0, w: -1}
+  m_LocalPosition: {x: -3.95, y: 1.126, z: -4.913}
+  m_LocalScale: {x: 0.020000005, y: 0.02, z: 0.020000005}
+  m_Children: []
+  m_Father: {fileID: 3508047621100809646}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: -359.987, z: 0}
+--- !u!114 &565273628495922982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3140584952497086460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c0702862a764c4b93c94c518b85209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minWidth: 0.43
+  _maxWidth: 1.82
+  _minHeight: 0.33
+  _maxHeight: 1.66
+--- !u!1 &3194236299983005385
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3226033836556179217}
+  - component: {fileID: 1165424715110749240}
+  m_Layer: 0
+  m_Name: PaintStand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3226033836556179217
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3194236299983005385}
+  m_LocalRotation: {x: -0, y: -0.7070254, z: -0, w: 0.7071881}
+  m_LocalPosition: {x: 2.915, y: 1.126, z: 2.049}
+  m_LocalScale: {x: 0.020000005, y: 0.02, z: 0.020000005}
+  m_Children: []
+  m_Father: {fileID: 3508047621100809646}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -89.98701, z: 0}
+--- !u!114 &1165424715110749240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3194236299983005385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c0702862a764c4b93c94c518b85209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minWidth: 0.43
+  _maxWidth: 1.82
+  _minHeight: 0.33
+  _maxHeight: 1.66
+--- !u!1 &3888136624384874906
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5727953957396657056}
+  - component: {fileID: 2773376428025456438}
+  m_Layer: 0
+  m_Name: PaintStand (13)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5727953957396657056
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3888136624384874906}
+  m_LocalRotation: {x: -0, y: -0.7070254, z: -0, w: 0.7071881}
+  m_LocalPosition: {x: 4.91, y: 1.126, z: -3.94}
+  m_LocalScale: {x: 0.020000005, y: 0.02, z: 0.020000005}
+  m_Children: []
+  m_Father: {fileID: 3508047621100809646}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: -89.98701, z: 0}
+--- !u!114 &2773376428025456438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3888136624384874906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c0702862a764c4b93c94c518b85209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minWidth: 0.43
+  _maxWidth: 1.82
+  _minHeight: 0.33
+  _maxHeight: 1.66
+--- !u!1 &4388681753990100817
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8005272721368756906}
+  - component: {fileID: 6268970397988640045}
+  m_Layer: 0
+  m_Name: PaintStand (14)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8005272721368756906
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4388681753990100817}
+  m_LocalRotation: {x: -0, y: 0.00011450051, z: -0, w: 1}
+  m_LocalPosition: {x: -2.01, y: 1.126, z: 1.1}
+  m_LocalScale: {x: 0.020000005, y: 0.02, z: 0.020000005}
+  m_Children: []
+  m_Father: {fileID: 3508047621100809646}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0.013, z: 0}
+--- !u!114 &6268970397988640045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4388681753990100817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c0702862a764c4b93c94c518b85209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minWidth: 0.43
+  _maxWidth: 1.82
+  _minHeight: 0.33
+  _maxHeight: 1.66
+--- !u!1 &4660113109271787323
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3659669103570937729}
+  - component: {fileID: 5889803318493895946}
+  m_Layer: 0
+  m_Name: PaintStand (8)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3659669103570937729
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4660113109271787323}
+  m_LocalRotation: {x: -0, y: -0.70718837, z: -0, w: -0.7070253}
+  m_LocalPosition: {x: -4.916, y: 1.126, z: -3.95}
+  m_LocalScale: {x: 0.020000005, y: 0.02, z: 0.020000005}
+  m_Children: []
+  m_Father: {fileID: 3508047621100809646}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: -269.987, z: 0}
+--- !u!114 &5889803318493895946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4660113109271787323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c0702862a764c4b93c94c518b85209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minWidth: 0.43
+  _maxWidth: 1.82
+  _minHeight: 0.33
+  _maxHeight: 1.66
+--- !u!1 &5103559011419819632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8182430577123792921}
+  - component: {fileID: 3572333153016184287}
+  m_Layer: 0
+  m_Name: PaintStand (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8182430577123792921
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5103559011419819632}
+  m_LocalRotation: {x: -0, y: -0.70718837, z: -0, w: -0.7070253}
+  m_LocalPosition: {x: -4.91, y: 1.126, z: 3.96}
+  m_LocalScale: {x: 0.020000005, y: 0.02, z: 0.020000005}
+  m_Children: []
+  m_Father: {fileID: 3508047621100809646}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: -269.987, z: 0}
+--- !u!114 &3572333153016184287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5103559011419819632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c0702862a764c4b93c94c518b85209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minWidth: 0.43
+  _maxWidth: 1.82
+  _minHeight: 0.33
+  _maxHeight: 1.66
 --- !u!1 &5627592740314300053
 GameObject:
   m_ObjectHideFlags: 0
@@ -26,9 +543,29 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5627592740314300053}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 19, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 3226033836556179217}
+  - {fileID: 2547748863322836105}
+  - {fileID: 3333658564746565484}
+  - {fileID: 6625248941510695492}
+  - {fileID: 3630455451074029511}
+  - {fileID: 1165269353041408051}
+  - {fileID: 6900698952902278876}
+  - {fileID: 8182430577123792921}
+  - {fileID: 3659669103570937729}
+  - {fileID: 4395593691788504928}
+  - {fileID: 7908649514038575329}
+  - {fileID: 7891763221914553842}
+  - {fileID: 7893882770484294942}
+  - {fileID: 5727953957396657056}
+  - {fileID: 8005272721368756906}
+  - {fileID: 5373334329448474985}
+  - {fileID: 7050832263252595870}
+  - {fileID: 7051158201736748064}
+  - {fileID: 2043674526079390692}
+  - {fileID: 9144265713582862647}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -79,3 +616,426 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &5646481082671452431
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7893882770484294942}
+  - component: {fileID: 5593282460131943510}
+  m_Layer: 0
+  m_Name: PaintStand (12)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7893882770484294942
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5646481082671452431}
+  m_LocalRotation: {x: -0, y: -0.000115752206, z: -0, w: -1}
+  m_LocalPosition: {x: 3.978, y: 1.126, z: -4.914}
+  m_LocalScale: {x: 0.020000005, y: 0.02, z: 0.020000005}
+  m_Children: []
+  m_Father: {fileID: 3508047621100809646}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: -359.987, z: 0}
+--- !u!114 &5593282460131943510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5646481082671452431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c0702862a764c4b93c94c518b85209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minWidth: 0.43
+  _maxWidth: 1.82
+  _minHeight: 0.33
+  _maxHeight: 1.66
+--- !u!1 &5700322644269480420
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6900698952902278876}
+  - component: {fileID: 5676780988310087966}
+  m_Layer: 0
+  m_Name: PaintStand (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6900698952902278876
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5700322644269480420}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.00011502205}
+  m_LocalPosition: {x: -3.96, y: 1.126, z: 4.91}
+  m_LocalScale: {x: 0.020000005, y: 0.02, z: 0.020000005}
+  m_Children: []
+  m_Father: {fileID: 3508047621100809646}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: -179.98701, z: 0}
+--- !u!114 &5676780988310087966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5700322644269480420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c0702862a764c4b93c94c518b85209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minWidth: 0.43
+  _maxWidth: 1.82
+  _minHeight: 0.33
+  _maxHeight: 1.66
+--- !u!1 &5727111716891150538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1165269353041408051}
+  - component: {fileID: 7386847680512872150}
+  m_Layer: 0
+  m_Name: PaintStand (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1165269353041408051
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5727111716891150538}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.00011502205}
+  m_LocalPosition: {x: -2.01, y: 1.126, z: 4.91}
+  m_LocalScale: {x: 0.020000005, y: 0.02, z: 0.020000005}
+  m_Children: []
+  m_Father: {fileID: 3508047621100809646}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: -179.98701, z: 0}
+--- !u!114 &7386847680512872150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5727111716891150538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c0702862a764c4b93c94c518b85209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minWidth: 0.43
+  _maxWidth: 1.82
+  _minHeight: 0.33
+  _maxHeight: 1.66
+--- !u!1 &6427171583315451644
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2547748863322836105}
+  - component: {fileID: 6994293663094090919}
+  m_Layer: 0
+  m_Name: PaintStand (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2547748863322836105
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6427171583315451644}
+  m_LocalRotation: {x: -0, y: 0.00011499223, z: -0, w: 1}
+  m_LocalPosition: {x: 1.936, y: 1.126, z: 1.091}
+  m_LocalScale: {x: 0.020000005, y: 0.02, z: 0.020000005}
+  m_Children: []
+  m_Father: {fileID: 3508047621100809646}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0.013, z: 0}
+--- !u!114 &6994293663094090919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6427171583315451644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c0702862a764c4b93c94c518b85209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minWidth: 0.43
+  _maxWidth: 1.82
+  _minHeight: 0.33
+  _maxHeight: 1.66
+--- !u!1 &7782228241339864386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3333658564746565484}
+  - component: {fileID: 3926771246571932524}
+  m_Layer: 0
+  m_Name: PaintStand (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3333658564746565484
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7782228241339864386}
+  m_LocalRotation: {x: -0, y: -0.7070254, z: -0, w: 0.7071881}
+  m_LocalPosition: {x: 4.913, y: 1.126, z: 3.928}
+  m_LocalScale: {x: 0.020000005, y: 0.02, z: 0.020000005}
+  m_Children: []
+  m_Father: {fileID: 3508047621100809646}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: -89.98701, z: 0}
+--- !u!114 &3926771246571932524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7782228241339864386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c0702862a764c4b93c94c518b85209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minWidth: 0.43
+  _maxWidth: 1.82
+  _minHeight: 0.33
+  _maxHeight: 1.66
+--- !u!1 &8750738327773730623
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7051158201736748064}
+  - component: {fileID: 7090838725030112156}
+  m_Layer: 0
+  m_Name: PaintStand (17)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7051158201736748064
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8750738327773730623}
+  m_LocalRotation: {x: -0, y: -0.7070254, z: -0, w: 0.7071881}
+  m_LocalPosition: {x: 2.91, y: 1.126, z: -2.02}
+  m_LocalScale: {x: 0.020000005, y: 0.02, z: 0.020000005}
+  m_Children: []
+  m_Father: {fileID: 3508047621100809646}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: -89.98701, z: 0}
+--- !u!114 &7090838725030112156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8750738327773730623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c0702862a764c4b93c94c518b85209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minWidth: 0.43
+  _maxWidth: 1.82
+  _minHeight: 0.33
+  _maxHeight: 1.66
+--- !u!1 &8772845452584741618
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9144265713582862647}
+  - component: {fileID: 6277410117015918165}
+  m_Layer: 0
+  m_Name: PaintStand (19)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9144265713582862647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8772845452584741618}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: -0.0001144409}
+  m_LocalPosition: {x: -1.96, y: 1.126, z: -1.08}
+  m_LocalScale: {x: 0.020000005, y: 0.02, z: 0.020000005}
+  m_Children: []
+  m_Father: {fileID: 3508047621100809646}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 180.01299, z: 0}
+--- !u!114 &6277410117015918165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8772845452584741618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c0702862a764c4b93c94c518b85209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minWidth: 0.43
+  _maxWidth: 1.82
+  _minHeight: 0.33
+  _maxHeight: 1.66
+--- !u!1 &8814862201766473851
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2043674526079390692}
+  - component: {fileID: 901371514208691294}
+  m_Layer: 0
+  m_Name: PaintStand (18)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2043674526079390692
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8814862201766473851}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: -0.0001144409}
+  m_LocalPosition: {x: 1.95, y: 1.126, z: -1.08}
+  m_LocalScale: {x: 0.020000005, y: 0.02, z: 0.020000005}
+  m_Children: []
+  m_Father: {fileID: 3508047621100809646}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 180.01299, z: 0}
+--- !u!114 &901371514208691294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8814862201766473851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c0702862a764c4b93c94c518b85209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minWidth: 0.43
+  _maxWidth: 1.82
+  _minHeight: 0.33
+  _maxHeight: 1.66
+--- !u!1 &9082899280049707835
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3630455451074029511}
+  - component: {fileID: 8590255780214488960}
+  m_Layer: 0
+  m_Name: PaintStand (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3630455451074029511
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9082899280049707835}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.00011502205}
+  m_LocalPosition: {x: 2.016, y: 1.126, z: 4.905}
+  m_LocalScale: {x: 0.020000005, y: 0.02, z: 0.020000005}
+  m_Children: []
+  m_Father: {fileID: 3508047621100809646}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: -179.98701, z: 0}
+--- !u!114 &8590255780214488960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9082899280049707835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c0702862a764c4b93c94c518b85209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minWidth: 0.43
+  _maxWidth: 1.82
+  _minHeight: 0.33
+  _maxHeight: 1.66
