@@ -16,7 +16,7 @@ public static class ChunkData
         }
     }
 
-    private static string roomPrefabStartFile = "Prefabs/StartingRoom_1";
+    private static string roomPrefabStartFile = "Prefabs/StartRoom";
     private static GameObject _startRoomPrefab = null;
     public static GameObject startRoomPrefab
     {
@@ -145,11 +145,12 @@ public class Chunk : MonoBehaviour
                 GameObject roomXY; 
 
                 // centre-most chunk is the special start room.
-                if(ChunkPos == Vector3Int.zero && x == 1 && y == 1)
+                if(ChunkPos == Vector3Int.zero && x == 0 && y == 0)
                 {
                     roomXY = GameObject.Instantiate(ChunkData.startRoomPrefab);
                     chunk.rooms[x, y] = roomXY.AddOrGetComponent<StartRoom>();        
                 }
+                // normal room.
                 else
                 {
                     roomXY = GameObject.Instantiate(ChunkData.GetRandomRoomPrefab());

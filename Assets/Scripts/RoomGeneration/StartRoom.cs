@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,10 +9,14 @@ public class StartRoom : Room
     #region parameters
     GameObject startRoomParent;
     GameObject normalRoomParent;
-    bool isStartRoom = true;
+    public bool isStartRoom { get; private set; }
 
     PlayerControllerPC player;
     Vector3 diffToPlayerNorm { get => (this.transform.position - player.transform.position).normalized; }
+    #endregion
+
+    #region actions
+    public Action OnStartRoomChange;
     #endregion
 
     #region unity methods
@@ -19,10 +24,18 @@ public class StartRoom : Room
     private void Awake()
     {
         startRoomParent = this.transform.Find("StartRoomParent").gameObject;
-        normalRoomParent = this.transform.Find("StartRoomParent").gameObject;
+        normalRoomParent = this.transform.Find("NormalRoomParent").gameObject;
 
         Debug.Assert(startRoomParent != null);
         Debug.Assert(normalRoomParent != null);
+
+        ChildColliderCallback ccStartRoom = startRoomParent.AddComponent<ChildColliderCallback>();
+        ccStartRoom.onTriggerExitCallback += OnStartRoomExit;
+
+        ChildColliderCallback ccNormalRoom = normalRoomParent.AddComponent<ChildColliderCallback>();
+        ccNormalRoom.onTriggerEnterCallback += OnStartRoomEnter;
+
+        ChangeToStartRoom();
     }
 
     // Start is called before the first frame update
@@ -34,17 +47,21 @@ public class StartRoom : Room
     // Update is called once per frame
     void Update()
     {
-        // check if the player line of sight looks away from the room, then turn it to a normal room.
-        float lineOfSightThresh = 0.5f;
-        if(isStartRoom && Vector3.Dot(player.lineOfSightNormal, diffToPlayerNorm) < lineOfSightThresh)
+    }
+
+    private void OnStartRoomExit(Collider other, GameObject _)
+    {
+        if(other.gameObject == player.gameObject)
         {
             ChangeToNormalRoom();
-            isStartRoom = false;
         }
-        else if(!isStartRoom)
+    }
+
+    private void OnStartRoomEnter(Collider other, GameObject _)
+    {
+        if(other.gameObject == player.gameObject)
         {
             ChangeToStartRoom();
-            isStartRoom = true;
         }
     }
 
@@ -59,14 +76,20 @@ public class StartRoom : Room
 
     void ChangeToNormalRoom()
     {
+        isStartRoom = false;
         startRoomParent.SetActive(false);
         normalRoomParent.SetActive(true);
+
+        OnStartRoomChange?.Invoke();
     }
 
     void ChangeToStartRoom()
     {
+        isStartRoom = true;
         normalRoomParent.SetActive(false);
         startRoomParent.SetActive(true);
+
+        OnStartRoomChange?.Invoke();
     }
     #endregion
 }

@@ -17,7 +17,7 @@ public class PlayerControllerPC : MonoBehaviour
     Rigidbody grabbedObject = null;
     FixedJoint grabJoint = null;
 
-    public Vector3 lineOfSightNormal { get => this.camera.transform.forward; }
+    public Vector3 lineOfSightNormal { get => this.camera == null ? Vector3.zero : this.camera.transform.forward; }
     #endregion
 
     #region unity methods
