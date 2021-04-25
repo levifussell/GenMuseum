@@ -16,6 +16,8 @@ public class PlayerControllerPC : MonoBehaviour
 
     Rigidbody grabbedObject = null;
     FixedJoint grabJoint = null;
+
+    public Vector3 lineOfSightNormal { get => this.camera.transform.forward; }
     #endregion
 
     #region unity methods
@@ -64,6 +66,12 @@ public class PlayerControllerPC : MonoBehaviour
             OnGrab();
         if (Input.GetMouseButtonUp(0))
             OnRelease();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(this.transform.position, this.transform.position + this.lineOfSightNormal);
     }
     #endregion
 
