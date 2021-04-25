@@ -4,11 +4,28 @@ using UnityEngine;
 
 public class PaintingSpawner : MonoBehaviour
 {
+    #region data
+    Material _backShadowMaterial = null;
+    Material backShadowMaterial
+    {
+        get
+        {
+            if(_backShadowMaterial == null)
+            {
+                _backShadowMaterial = Resources.Load<Material>("Materials/Paintings/BackShadow");
+            }
+
+            return _backShadowMaterial;
+        }
+    }
+    #endregion
+
     #region serialized parameters
     [SerializeField] [Range(0.0f, 9.0f)] float _minWidth = 0.1f;
     [SerializeField] [Range(0.0f, 10.0f)] float _maxWidth = 0.3f;
     [SerializeField] [Range(0.0f, 9.0f)] float _minHeight = 0.1f;
     [SerializeField] [Range(0.0f, 10.0f)] float _maxHeight = 0.3f;
+    [SerializeField] bool spawnPaintingOnStart = true;
     #endregion
 
     #region parameters
@@ -34,7 +51,9 @@ public class PaintingSpawner : MonoBehaviour
     {
         ChoosePaintingParameters();
         CreatePaintingStand();
-        SpawnPainting();
+
+        if(spawnPaintingOnStart)
+            SpawnPainting();
     }
 
     private void OnDrawGizmos()
@@ -69,7 +88,9 @@ public class PaintingSpawner : MonoBehaviour
 
     private void CreatePaintingStand()
     {
-        float nailWidth = 0.01f;
+        float nailWidth = 0.02f;
+
+        // nail left.
 
         GameObject nailLeft = GameObject.CreatePrimitive(PrimitiveType.Cube);
         nailLeft.transform.localScale = Vector3.one * nailWidth;
@@ -78,12 +99,25 @@ public class PaintingSpawner : MonoBehaviour
             -Vector3.right * ((spawnWidth - nailWidth) / 2.0f - Painting.FRAME_WIDTH) +
             Vector3.up * ((spawnHeight - nailWidth) / 2.0f - Painting.FRAME_WIDTH));
 
+        // nail right.
+
         GameObject nailRight = GameObject.CreatePrimitive(PrimitiveType.Cube);
         nailRight.transform.localScale = Vector3.one * nailWidth;
         nailRight.transform.SetParent(this.transform);
         nailRight.transform.position = this.transform.position + this.transform.rotation * (
             Vector3.right * ((spawnWidth - nailWidth) / 2.0f - Painting.FRAME_WIDTH) +
             Vector3.up * ((spawnHeight - nailWidth) / 2.0f - Painting.FRAME_WIDTH));
+
+        // back painting shadow.
+        GameObject backShadow = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        Destroy(backShadow.GetComponent<Collider>());
+        backShadow.transform.localScale = new Vector3(spawnWidth, spawnHeight, 1.0f);
+        backShadow.transform.SetParent(this.transform);
+        backShadow.transform.position = this.transform.position + this.transform.rotation * (
+            -Vector3.forward * Painting.DEPTH / 2.0f);
+        backShadow.transform.localRotation = Quaternion.AngleAxis(180.0f, Vector3.up);
+        Renderer paintRenderer = backShadow.GetComponent<Renderer>();
+        paintRenderer.material = backShadowMaterial;
     }
 
     public void SpawnPainting()
