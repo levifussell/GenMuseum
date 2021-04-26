@@ -41,6 +41,7 @@ public class PlayerControllerPC : MonoBehaviour
             this.transform.position.z);
 
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -89,7 +90,18 @@ public class PlayerControllerPC : MonoBehaviour
 
         // cursor unlock
         if (Input.GetKeyDown(KeyCode.Escape))
-            Cursor.lockState = CursorLockMode.None;
+        {
+            if(Cursor.lockState == CursorLockMode.Locked)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        }
 
         // grabbing.
         if (Input.GetMouseButtonDown(0))

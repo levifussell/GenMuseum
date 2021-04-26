@@ -25,12 +25,14 @@ public class _BatchPaintGenerator : MonoBehaviour
     #endregion
 
     #region unity methods
+
     // Start is called before the first frame update
     void Start()
     {
         modelAsset = Resources.Load<NNModel>("ML/generator_v1");
 
         m_runtimeModel = ModelLoader.Load(modelAsset);
+        //m_worker = WorkerFactory.CreateWorker(WorkerFactory.Type.ComputePrecompiled, m_runtimeModel);
         m_worker = WorkerFactory.CreateWorker(WorkerFactory.Type.Compute, m_runtimeModel);
 
         for(int i = 0; i < BATCH_SIZE; ++i)
@@ -40,7 +42,15 @@ public class _BatchPaintGenerator : MonoBehaviour
             m_textureBuffer[i].wrapMode = TextureWrapMode.Clamp;
         }
 
-        StartCoroutine(InferenceIterator(3.0f));
+        //StartCoroutine(InferenceIterator(3.0f));
+    }
+
+    private void OnDestroy()
+    {
+        for(int i = 0; i < BATCH_SIZE; ++i)
+        {
+            m_textureBuffer[i].Release();
+        }
     }
 
     // Update is called once per frame
@@ -63,14 +73,19 @@ public class _BatchPaintGenerator : MonoBehaviour
 
     void OutputToTextureAndCallback(Tensor output)
     {
+        UnityEngine.Profiling.Profiler.BeginSample("NN::PushRenderTextures");
+
         for(int i = 0; i < m_currentTextureBufferCount; ++i)
         {
             output.ToRenderTexture(m_textureBuffer[i], i);
         }
 
         onInferenceCallback?.Invoke(m_textureBuffer);
+        onInferenceCallback = null; // removes all subscribed delegates.
         m_currentTextureBufferCount = 0;
         m_currentTextureBufferRequestCount = 0;
+
+        UnityEngine.Profiling.Profiler.EndSample();
     }
     #endregion
 
@@ -80,7 +95,7 @@ public class _BatchPaintGenerator : MonoBehaviour
     {
         while (true)
         {
-            if(m_currentTextureBufferCount > 0)
+            if(m_currentTextureBufferRequestCount > 0)
             {
                 DoInferenceStep();
             }
@@ -105,11 +120,36 @@ public class _BatchPaintGenerator : MonoBehaviour
     {
         print($"Doing inference with {m_currentTextureBufferCount} of {BATCH_SIZE} max images. Number of requests: {m_currentTextureBufferRequestCount}");
 
-        Tensor input = GenerateNRandTensor(m_currentTextureBufferCount, LATENT_SIZE);
-        m_worker.Execute(input);
-        Tensor output = m_worker.PeekOutput("Y");
-        input.Dispose();
+        UnityEngine.Profiling.Profiler.BeginSample("NN::CreateInputTensor");
 
+        Tensor input = GenerateNRandTensor(m_currentTextureBufferCount, LATENT_SIZE);
+
+        UnityEngine.Profiling.Profiler.EndSample();
+
+        InferenceInParts(m_worker, input, 1);
+        input.Dispose();
+    }
+    void InferenceInParts(IWorker worker, Tensor input, int syncEveryNthLayer=5)
+    {
+        UnityEngine.Profiling.Profiler.BeginSample("NN::FeedForward");
+
+        var executor = worker.StartManualSchedule(input);
+        var it = 0;
+        bool hasMoreWork;
+
+        do
+        {
+            hasMoreWork = executor.MoveNext();
+            //if (++it % syncEveryNthLayer == 0)
+            //{
+            worker.FlushSchedule();
+                //yield return new WaitForEndOfFrame();
+            //}
+        } while (hasMoreWork);
+
+        UnityEngine.Profiling.Profiler.EndSample();
+
+        Tensor output =  worker.PeekOutput("Y");
         OutputToTextureAndCallback(output);
     }
     #endregion

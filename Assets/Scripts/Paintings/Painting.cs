@@ -20,6 +20,7 @@ public class Painting : MonoBehaviour
     GameObject frameTop = null;
     GameObject frameBottom = null;
     GameObject painting = null;
+    RenderTexture paintingTexture = null;
 
     /* generator inference */
     int generatorRenderBufferIndex = -1;
@@ -27,6 +28,11 @@ public class Painting : MonoBehaviour
 
     #region unity methods
     // Start is called before the first frame update
+    private void OnDestroy()
+    {
+        if (paintingTexture != null)
+            paintingTexture.Release();
+    }
     void Start()
     {
         CreateProceduralPainting();
@@ -122,8 +128,11 @@ public class Painting : MonoBehaviour
     {
         BatchPaintGenerator.Instance.onInferenceCallback -= OnGeneratorInference;
 
+        paintingTexture = new RenderTexture(renderTextureBuffer[generatorRenderBufferIndex]);
+        Graphics.CopyTexture(renderTextureBuffer[generatorRenderBufferIndex], paintingTexture);
+
         Renderer paintRenderer = painting.GetComponent<Renderer>();
-        paintRenderer.material.mainTexture = renderTextureBuffer[generatorRenderBufferIndex];
+        paintRenderer.material.mainTexture = paintingTexture;
     }
     #endregion
 }
