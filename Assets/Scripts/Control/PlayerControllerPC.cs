@@ -109,9 +109,13 @@ public class PlayerControllerPC : MonoBehaviour
         // rotational movement.
 
         if (Input.GetKey(KeyCode.Q))
-            this.transform.rotation *= Quaternion.AngleAxis(-speedRot * Time.deltaTime, Vector3.up);
+        {
+            this.transform.rotation = Quaternion.AngleAxis(-speedRot * Time.deltaTime, Vector3.up);
+        }
         else if (Input.GetKey(KeyCode.E))
+        {
             this.transform.rotation *= Quaternion.AngleAxis(speedRot * Time.deltaTime, Vector3.up);
+        }
 
         // mouse movement.
         float rotateVertical = Input.GetAxis("Mouse Y");
@@ -154,7 +158,7 @@ public class PlayerControllerPC : MonoBehaviour
     #region audio
     IEnumerator Walking(float walkPeriodSeconds)
     {
-        float volume = 0.5f;
+        float volume = 0.3f;
         float pitchRange = 0.1f;
         audioSource.volume = volume;
         while(true)

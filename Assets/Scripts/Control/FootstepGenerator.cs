@@ -18,7 +18,7 @@ public class FootstepGenerator : MonoBehaviour
     }
     Queue<Footstep> footstepQueue = new Queue<Footstep>();
 
-    Color newestColor = new Color(0.1f, 0.1f, 0.2f);
+    Color newestColor = new Color(0.1f, 0.1f, 0.12f);
     Color oldestColor = new Color(0.0f, 0.0f, 0.0f, 0.01f);
     #endregion
 
@@ -52,6 +52,13 @@ public class FootstepGenerator : MonoBehaviour
 
         return from;
     }
+    
+    Vector3 NoisyForwardFootstep(Vector3 footstep)
+    {
+        float forwardScale = 0.1f;
+        float noiseScale = 0.3f;
+        return footstep + forwardScale * playerController.transform.forward + noiseScale * Random.Range(-1.0f, 1.0f) * playerController.transform.right;
+    }
 
     void StepFootstep()
     {
@@ -60,7 +67,7 @@ public class FootstepGenerator : MonoBehaviour
         {
             Footstep footstep;
             footstep.gameObject = GameObject.Instantiate(footstepPrefab);
-            footstep.gameObject.transform.position = FootstepPositionProjectedFrom(playerController.playerBase);
+            footstep.gameObject.transform.position = NoisyForwardFootstep(FootstepPositionProjectedFrom(playerController.playerBase));
             footstep.material = footstep.gameObject.GetComponent<Renderer>().material;
             footstepQueue.Enqueue(footstep);
         }
@@ -69,7 +76,7 @@ public class FootstepGenerator : MonoBehaviour
         else
         {
             Footstep oldest = footstepQueue.Dequeue();
-            oldest.gameObject.transform.position = FootstepPositionProjectedFrom(playerController.playerBase);
+            oldest.gameObject.transform.position = NoisyForwardFootstep(FootstepPositionProjectedFrom(playerController.playerBase));
             footstepQueue.Enqueue(oldest);
         }
 
@@ -77,7 +84,7 @@ public class FootstepGenerator : MonoBehaviour
         int count = 0;
         foreach(Footstep f in footstepQueue)
         {
-            f.material.color = Color.Lerp(oldestColor, newestColor, (float)count / (float)maxFootsteps);
+            f.material.color = Color.Lerp(oldestColor, newestColor, (float)count / (float)footstepQueue.Count);
             count++;
         }
 
