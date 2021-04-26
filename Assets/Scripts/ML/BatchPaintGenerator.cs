@@ -42,7 +42,7 @@ public class _BatchPaintGenerator : MonoBehaviour
             m_textureBuffer[i].wrapMode = TextureWrapMode.Clamp;
         }
 
-        //StartCoroutine(InferenceIterator(3.0f));
+        StartCoroutine(InferenceIterator(3.0f));
     }
 
     private void OnDestroy()
