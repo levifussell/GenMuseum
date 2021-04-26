@@ -110,7 +110,8 @@ public class _BatchPaintGenerator : MonoBehaviour
         for(int b = 0; b < batchSize; ++b)
         {
             for (int i = 0; i < latentSize; ++i)
-                input[b, 0, 0, i] = RandomGaussian(-2.5f, 2.5f);
+                input[b, 0, 0, i] = UnityEngine.Random.Range(-2.0f, 2.0f);
+                //input[b, 0, 0, i] = RandomGaussian(-2.5f, 2.5f);
         }
 
         return input;

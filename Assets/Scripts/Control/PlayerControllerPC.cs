@@ -26,6 +26,8 @@ public class PlayerControllerPC : MonoBehaviour
 
     Color pointerOn = new Color(1.0f, 1.0f, 1.0f, 0.75f);
     Color pointerOff = new Color(1.0f, 1.0f, 1.0f, 0.05f);
+
+    AudioSource audioSource;
     #endregion
 
     #region unity methods
@@ -36,6 +38,8 @@ public class PlayerControllerPC : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
 
         playerCollider = GetComponent<CapsuleCollider>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -48,6 +52,8 @@ public class PlayerControllerPC : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        StartCoroutine(Walking(0.25f));
     }
 
     // Update is called once per frame
@@ -126,19 +132,50 @@ public class PlayerControllerPC : MonoBehaviour
     }
     #endregion
 
+    #region audio
+    IEnumerator Walking(float walkPeriodSeconds)
+    {
+        float volume = 0.5f;
+        float pitchRange = 0.1f;
+        audioSource.volume = volume;
+        while(true)
+        {
+            if(this.rigidbody.velocity.sqrMagnitude < 1e-5f)
+            {
+                if(audioSource.isPlaying)
+                    audioSource.Stop();
+                yield return new WaitForEndOfFrame();
+            }
+            else
+            {
+                audioSource.pitch = Random.Range(1.0f - pitchRange, 1.0f + pitchRange);
+                audioSource.Play();
+                yield return new WaitForSeconds(walkPeriodSeconds);
+                audioSource.Stop();
+                yield return new WaitForSeconds(walkPeriodSeconds);
+            }
+        }
+    }
+    #endregion
+
     #region grabbing
     void CheckPointerForGrabbable()
     {
-        pointerImage.color = pointerOff;
-
-        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hitInfo, grabDistMax, ~0, QueryTriggerInteraction.Ignore))
+        if(Input.GetMouseButton(0))
+            pointerImage.color = pointerOn;
+        else
         {
-            if (hitInfo.rigidbody == null)
-                return;
+            pointerImage.color = pointerOff;
 
-            Grabbable p = hitInfo.rigidbody.GetComponent<Grabbable>();
+            if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hitInfo, grabDistMax, ~0, QueryTriggerInteraction.Ignore))
+            {
+                if (hitInfo.rigidbody == null)
+                    return;
 
-            if (p != null) { pointerImage.color = pointerOn; }
+                Grabbable p = hitInfo.rigidbody.GetComponent<Grabbable>();
+
+                if (p != null) { pointerImage.color = pointerOn; }
+            }
         }
 
     }
@@ -169,6 +206,10 @@ public class PlayerControllerPC : MonoBehaviour
                 grabJoint = cameraGrabAnchor.gameObject.AddComponent<ConfigurableJoint>();
                 ConfigurableJointExtensions.CustomSpringPositionRotationJointAutoPair(grabJoint,
                     grabbedObject, 300.0f, 10.0f, 100.0f, 1.0f, 100.0f);
+
+                // invoke any grab events.
+
+                p.StartGrab();
             }
         }
     }
