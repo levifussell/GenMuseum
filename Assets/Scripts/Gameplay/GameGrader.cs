@@ -8,6 +8,9 @@ using UnityEditor;
 
 public class GameGrader : MonoBehaviour
 {
+    #region serialized paramters
+    #endregion
+
     #region parameters
     PaintingSpawner[] goalPaintSpawners;
     PaintingRelationship[] goalPaintRelationships;
@@ -15,7 +18,10 @@ public class GameGrader : MonoBehaviour
     public float lastScore { get; private set; }
     public int lastGrade { get; private set; }
 
+    PlayerControllerPC player;
     FadeView fadeView;
+
+    GameObject[] endItems = null;
     #endregion
 
     #region unity methods
@@ -47,6 +53,13 @@ public class GameGrader : MonoBehaviour
         UpdateScoreAndGrade();
 
         fadeView = FindObjectOfType<FadeView>();
+        player = FindObjectOfType<PlayerControllerPC>();
+
+        endItems = GameObject.FindGameObjectsWithTag("End");
+        foreach(GameObject g in endItems)
+        {
+            g.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -150,9 +163,15 @@ public class GameGrader : MonoBehaviour
     void SpawnEndGameItems()
     {
         fadeView.OnFadeInCallback -= SpawnEndGameItems;
-        fadeView.FadeOut(1.0f);
 
-        // TODO: spawn game over items on table.
+        // respawn the player.
+        player.Respawn();
+
+        // spawn game over items.
+        foreach(GameObject g in endItems)
+        {
+            g.SetActive(true);
+        }
 
         // TODO: close the back door.
     }

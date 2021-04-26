@@ -95,14 +95,14 @@ public class Chunk : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (objectsInChunk.Contains(other.attachedRigidbody))
+        if (objectsInChunk.Contains(other.attachedRigidbody) || other.CompareTag("Player") || other.CompareTag("MainCamera"))
             return;
 
         objectsInChunk.Add(other.attachedRigidbody);
     }
     private void OnTriggerExit(Collider other)
     {
-        if (!objectsInChunk.Contains(other.attachedRigidbody))
+        if (!objectsInChunk.Contains(other.attachedRigidbody) || other.CompareTag("Player") || other.CompareTag("MainCamera"))
             return;
 
         objectsInChunk.Remove(other.attachedRigidbody);

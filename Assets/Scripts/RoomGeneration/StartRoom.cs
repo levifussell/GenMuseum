@@ -55,6 +55,7 @@ public class StartRoom : Room
     void Start()
     {
         player = FindObjectOfType<PlayerControllerPC>();
+        player.OnRespawnCallback += ChangeToStartRoom;
     }
 
     // Update is called once per frame
@@ -80,7 +81,8 @@ public class StartRoom : Room
 
     private void OnStartRoomStoreEnter(Collider other, GameObject _)
     {
-        if (objectsInRoom.Contains(other.attachedRigidbody))
+        if (objectsInRoom.Contains(other.attachedRigidbody) || other.CompareTag("Player") || other.CompareTag("MainCamera"))
+
             return;
 
         objectsInRoom.Add(other.attachedRigidbody);
@@ -88,7 +90,8 @@ public class StartRoom : Room
 
     private void OnStartRoomStoreExit(Collider other, GameObject _)
     {
-        if (!objectsInRoom.Contains(other.attachedRigidbody))
+        if (!objectsInRoom.Contains(other.attachedRigidbody) || other.CompareTag("Player") || other.CompareTag("MainCamera"))
+
             return;
 
         objectsInRoom.Remove(other.attachedRigidbody);

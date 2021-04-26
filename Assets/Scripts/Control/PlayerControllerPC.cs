@@ -19,6 +19,10 @@ public class PlayerControllerPC : MonoBehaviour
     Rigidbody rigidbody;
     CapsuleCollider playerCollider;
 
+    Vector3 playerSpawnPosition;
+    Quaternion playerSpawnOrientation;
+    public Action OnRespawnCallback;
+
     Rigidbody cameraGrabAnchor = null;
     Rigidbody grabbedObject = null;
     ConfigurableJoint grabJoint = null;
@@ -59,6 +63,7 @@ public class PlayerControllerPC : MonoBehaviour
         playerCollider = GetComponent<CapsuleCollider>();
 
         audioSource = GetComponent<AudioSource>();
+
     }
 
     // Start is called before the first frame update
@@ -68,6 +73,9 @@ public class PlayerControllerPC : MonoBehaviour
             this.transform.position.x,
             playerCollider.height * 0.6f * this.transform.localScale.y,
             this.transform.position.z);
+
+        this.playerSpawnPosition = this.transform.position;
+        this.playerSpawnOrientation = this.transform.rotation;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -149,6 +157,10 @@ public class PlayerControllerPC : MonoBehaviour
             OnGrab();
         if (Input.GetMouseButtonUp(0))
             OnRelease();
+
+        // teleporting
+        if (Input.GetKeyDown(KeyCode.T))
+            Respawn();
     }
 
     private void OnDrawGizmos()
@@ -182,6 +194,18 @@ public class PlayerControllerPC : MonoBehaviour
                 yield return new WaitForSeconds(walkPeriodSeconds);
             }
         }
+    }
+    #endregion
+
+    #region respawning
+    public void Respawn()
+    {
+        OnRelease();
+        this.transform.position = this.playerSpawnPosition;
+        this.transform.rotation = this.playerSpawnOrientation;
+        fadeView.FadeOut(1.0f);
+
+        OnRespawnCallback?.Invoke();
     }
     #endregion
 
