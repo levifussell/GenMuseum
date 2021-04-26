@@ -26,7 +26,7 @@ public class PlayerControllerPC : MonoBehaviour
     public Vector3 lineOfSightNormal { get => this.camera == null ? Vector3.zero : this.camera.transform.forward; }
 
     Color pointerOn = new Color(1.0f, 1.0f, 1.0f, 0.75f);
-    Color pointerOff = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+    Color pointerOff = new Color(1.0f, 1.0f, 1.0f, 0.05f);
 
     public Action OnStepCallback;
     AudioSource audioSource;

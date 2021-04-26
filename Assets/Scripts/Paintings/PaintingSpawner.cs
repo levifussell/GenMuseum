@@ -97,6 +97,14 @@ public class PaintingSpawner : MonoBehaviour
         Gizmos.DrawWireCube(Vector3.zero, new Vector3(spawnWidth, spawnHeight, Painting.DEPTH));
     }
 
+    private void OnDisable()
+    {
+        goalPainting = null;
+        goalPaintingTriggerCount = 0;
+        DisableGoalVisual();
+        OnGoalPaintingExit?.Invoke();
+    }
+
     /* Painting Goal */
 
     private void OnTriggerEnter(Collider other)

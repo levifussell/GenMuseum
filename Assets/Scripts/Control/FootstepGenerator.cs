@@ -19,7 +19,7 @@ public class FootstepGenerator : MonoBehaviour
     Queue<Footstep> footstepQueue = new Queue<Footstep>();
 
     Color newestColor = new Color(0.1f, 0.1f, 0.12f);
-    Color oldestColor = new Color(0.0f, 0.0f, 0.0f, 0.01f);
+    Color oldestColor = new Color(0.0f, 0.0f, 0.0f, 0.0f);
     #endregion
 
     #region unity methods
