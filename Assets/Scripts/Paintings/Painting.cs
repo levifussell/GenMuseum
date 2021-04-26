@@ -20,6 +20,9 @@ public class Painting : MonoBehaviour
     GameObject frameTop = null;
     GameObject frameBottom = null;
     GameObject painting = null;
+
+    /* generator inference */
+    int generatorRenderBufferIndex = -1;
     #endregion
 
     #region unity methods
@@ -105,10 +108,22 @@ public class Painting : MonoBehaviour
         painting.transform.SetParent(this.transform);
         painting.transform.localPosition = new Vector3(0.0f, 0.0f, (DEPTH + canvasWidth) / 2.0f);
         painting.transform.localRotation = Quaternion.identity;
-        Renderer paintRenderer = painting.GetComponent<Renderer>();
-        paintRenderer.material.mainTexture = SimplePaintGenerator.Generate((int)(width * RESOLUTION), (int)(height * RESOLUTION));
+        //paintRenderer.material.mainTexture = SimplePaintGenerator.Generate((int)(width * RESOLUTION), (int)(height * RESOLUTION));
 
         UnityEngine.Profiling.Profiler.EndSample();
+
+        // add new entry in generator buffer.
+        generatorRenderBufferIndex = BatchPaintGenerator.Instance.AddNewTextureCallback(OnGeneratorInference);
+    }
+    #endregion
+
+    #region generator inference
+    public void OnGeneratorInference(RenderTexture[] renderTextureBuffer)
+    {
+        BatchPaintGenerator.Instance.onInferenceCallback -= OnGeneratorInference;
+
+        Renderer paintRenderer = painting.GetComponent<Renderer>();
+        paintRenderer.material.mainTexture = renderTextureBuffer[generatorRenderBufferIndex];
     }
     #endregion
 }
