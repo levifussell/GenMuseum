@@ -30,11 +30,15 @@ public class GenerationManager : MonoBehaviour
     Vector3Int lastPlayerChunkPosition = Vector3Int.zero;
 
     /* Start Room */
-    StartRoom startRoom = null;
+    public StartRoom startRoom { get; private set; }
 
     #endregion
 
     #region unity methods
+    private void Awake()
+    {
+        startRoom = null;
+    }
     // Start is called before the first frame update
     void Start()
     {

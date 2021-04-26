@@ -27,7 +27,7 @@ public class PaintingSpawner : MonoBehaviour
     [SerializeField] [Range(0.0f, 9.0f)] float _minHeight = 0.1f;
     [SerializeField] [Range(0.0f, 10.0f)] float _maxHeight = 0.3f;
     [SerializeField] bool spawnPaintingOnStart = true;
-    [SerializeField] bool isPaintingGoalPoint = false;
+    [SerializeField] public bool isPaintingGoalPoint = false;
     #endregion
 
     #region parameters
@@ -61,8 +61,11 @@ public class PaintingSpawner : MonoBehaviour
         }
     }
 
+    public float lastGoalScore { get; private set; }
+
     public Action OnGoalPaintingEnter;
     public Action OnGoalPaintingExit;
+    public Action OnGoalScoreChanged;
     #endregion
 
     #region unity methods
@@ -169,25 +172,29 @@ public class PaintingSpawner : MonoBehaviour
 
     private void CreatePaintingStand()
     {
-        float nailWidth = 0.02f;
+        float nailWidth = 0.135f;
+        float nailHeight = 0.03f;
+        float nailLength = 0.03f;
 
         // nail left.
 
         GameObject nailLeft = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        nailLeft.transform.localScale = Vector3.one * nailWidth;
+        nailLeft.transform.localScale = this.transform.rotation * new Vector3(nailWidth, nailHeight, nailLength);
         nailLeft.transform.SetParent(this.transform);
         nailLeft.transform.position = this.transform.position + this.transform.rotation * (
             -Vector3.right * ((spawnWidth - nailWidth) / 2.0f - Painting.FRAME_WIDTH) +
-            Vector3.up * ((spawnHeight - nailWidth) / 2.0f - Painting.FRAME_WIDTH));
+            Vector3.up * ((spawnHeight - nailHeight) / 2.0f - Painting.FRAME_WIDTH) +
+            -Vector3.forward * Painting.DEPTH * 0.0f);
 
         // nail right.
 
         GameObject nailRight = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        nailRight.transform.localScale = Vector3.one * nailWidth;
+        nailRight.transform.localScale = this.transform.rotation * new Vector3(nailWidth, nailHeight, nailLength);
         nailRight.transform.SetParent(this.transform);
         nailRight.transform.position = this.transform.position + this.transform.rotation * (
             Vector3.right * ((spawnWidth - nailWidth) / 2.0f - Painting.FRAME_WIDTH) +
-            Vector3.up * ((spawnHeight - nailWidth) / 2.0f - Painting.FRAME_WIDTH));
+            Vector3.up * ((spawnHeight - nailHeight) / 2.0f - Painting.FRAME_WIDTH) +
+            -Vector3.forward * Painting.DEPTH * 0.0f);
 
         // back painting shadow.
         GameObject backShadow = GameObject.CreatePrimitive(PrimitiveType.Quad);
@@ -263,13 +270,16 @@ public class PaintingSpawner : MonoBehaviour
 
     public void EnableGoalVisual()
     {
-        float goalScore = ComputeGoalScore();
-        goalLineVisual.material.color = Color.Lerp(Color.red, Color.green, goalScore * goalScore * goalScore);
+        lastGoalScore = ComputeGoalScore();
+        goalLineVisual.material.color = Color.Lerp(Color.red, Color.green, lastGoalScore * lastGoalScore * lastGoalScore);
+        OnGoalScoreChanged?.Invoke();
     }
 
     public void DisableGoalVisual()
     {
+        lastGoalScore = 0.0f;
         goalLineVisual.material.color = new Color(1.0f, 1.0f, 1.0f, 0.1f);
+        OnGoalScoreChanged?.Invoke();
     }
 
     public float ComputeGoalScore()

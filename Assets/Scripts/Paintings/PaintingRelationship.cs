@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +21,10 @@ public class PaintingRelationship : MonoBehaviour
             return _goalLineVisualMaterial;
         }
     }
+
+    public float lastGoalScore { get; private set; }
+
+    public Action OnGoalScoreChanged;
     #endregion
 
     #region unity method
@@ -69,7 +74,7 @@ public class PaintingRelationship : MonoBehaviour
     #endregion
 
     #region relationship methods
-    float ComputeRelationshipValue()
+    public float ComputeRelationshipScore()
     {
         if (spawnerA.goalPainting == null || spawnerB.goalPainting == null)
             return 0.0f;
@@ -133,8 +138,10 @@ public class PaintingRelationship : MonoBehaviour
         if (spawnerA.goalPainting == null || spawnerB.goalPainting == null)
             return;
 
-        float goalScore = ComputeRelationshipValue();
-        goalLineVisual.material.color = Color.Lerp(Color.red, Color.green, goalScore * goalScore * goalScore);
+        lastGoalScore = ComputeRelationshipScore();
+        goalLineVisual.material.color = Color.Lerp(Color.red, Color.green, lastGoalScore * lastGoalScore * lastGoalScore);
+
+        OnGoalScoreChanged?.Invoke();
     }
 
     public void DisablePaintingRelationship()
@@ -142,7 +149,10 @@ public class PaintingRelationship : MonoBehaviour
         if (spawnerA.goalPainting != null && spawnerB.goalPainting != null)
             return;
 
+        lastGoalScore = 0.0f;
         goalLineVisual.material.color = new Color(1.0f, 1.0f, 1.0f, 0.1f);
+
+        OnGoalScoreChanged?.Invoke();
     }
     #endregion
 }

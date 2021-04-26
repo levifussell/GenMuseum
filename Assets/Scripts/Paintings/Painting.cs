@@ -11,8 +11,8 @@ public class Painting : MonoBehaviour
 
     #region parameters
     public static float RESOLUTION = 100.0f;
-    public static float DEPTH = 0.01f;
-    public static float FRAME_WIDTH = 0.01f;
+    public static float DEPTH = 0.025f;
+    public static float FRAME_WIDTH = 0.02f;
 
     private static GameObject baseObject = null;
     private static Painting baseObjectPainting = null;
@@ -77,7 +77,7 @@ public class Painting : MonoBehaviour
 
     private void CreateProceduralPainting()
     {
-        float canvasWidth = 0.3f * DEPTH;
+        float canvasWidth = 0.75f * DEPTH;
         // canvas
 
         UnityEngine.Profiling.Profiler.BeginSample("Painting::CreateCanvas");
@@ -96,13 +96,13 @@ public class Painting : MonoBehaviour
             // top.
         frameTop.transform.localScale = new Vector3(width, FRAME_WIDTH, FRAME_WIDTH);
         frameTop.transform.SetParent(this.transform);
-        frameTop.transform.localPosition = new Vector3(0.0f, (height - FRAME_WIDTH) / 2.0f, 0.0f);
+        frameTop.transform.localPosition = new Vector3(0.0f, (height - FRAME_WIDTH) / 2.0f, -FRAME_WIDTH / 3.0f);
         frameTop.transform.localRotation = Quaternion.identity;
 
             // bottom.
         frameBottom.transform.localScale = new Vector3(width, FRAME_WIDTH, FRAME_WIDTH);
         frameBottom.transform.SetParent(this.transform);
-        frameBottom.transform.localPosition = new Vector3(0.0f, -(height - FRAME_WIDTH) / 2.0f, 0.0f);
+        frameBottom.transform.localPosition = new Vector3(0.0f, -(height - FRAME_WIDTH) / 2.0f, -FRAME_WIDTH / 3.0f);
         frameBottom.transform.localRotation = Quaternion.identity;
 
         UnityEngine.Profiling.Profiler.EndSample();
