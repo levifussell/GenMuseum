@@ -68,11 +68,12 @@ public class PhoneResponse : MonoBehaviour
     {
         jitterOn = false;
 
-        audioSource.clip = voiceAudio;
         audioSource.loop = false;
-        audioSource.Play();
-        audioSource.maxDistance = 40.0f;
+        audioSource.maxDistance = 10.0f;
         audioSource.volume = 1.0f;
+        audioSource.clip = voiceAudio;
+        audioSource.playOnAwake = false;
+        audioSource.Play();
 
         //grab.playHitSound = true;
     }

@@ -26,9 +26,12 @@ public class PlayerControllerPC : MonoBehaviour
     Rigidbody cameraGrabAnchor = null;
     Rigidbody grabbedObject = null;
     ConfigurableJoint grabJoint = null;
+    Vector3 grabbedObjectScale;
+    Transform grabbedObjectParent;
 
     float grabDistMax = 10.0f;
     public Vector3 lineOfSightNormal { get => this.camera == null ? Vector3.zero : this.camera.transform.forward; }
+    int grabState = 0;
 
     Color pointerOn = new Color(1.0f, 1.0f, 1.0f, 0.75f);
     Color pointerOff = new Color(1.0f, 1.0f, 1.0f, 0.05f);
@@ -100,18 +103,15 @@ public class PlayerControllerPC : MonoBehaviour
 
         if (Input.GetKey(KeyCode.S))
         {
-
             this.rigidbody.velocity += -this.transform.forward;
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-
             this.rigidbody.velocity += this.transform.right;
         }
         if (Input.GetKey(KeyCode.A))
         {
-
             this.rigidbody.velocity += -this.transform.right;
         }
 
@@ -154,9 +154,27 @@ public class PlayerControllerPC : MonoBehaviour
         CheckPointerForGrabbable();
 
         if (Input.GetMouseButtonDown(0))
-            OnGrab();
-        if (Input.GetMouseButtonUp(0))
-            OnRelease();
+        {
+            if (grabState == 0)
+            {
+                if(OnToInventory())
+                    grabState = 1;
+            }
+            else if (grabState == 1)
+            {
+                if(OnToHand())
+                    grabState = 2;
+            }
+            else if(grabState == 2)
+            {
+                if(OnRelease())
+                    grabState = 0;
+            }
+
+            //OnGrab();
+        }
+        //if (Input.GetMouseButtonUp(0))
+        //    OnRelease();
 
         // teleporting
         if (Input.GetKeyDown(KeyCode.T))
@@ -212,13 +230,13 @@ public class PlayerControllerPC : MonoBehaviour
     #region grabbing
     void CheckPointerForGrabbable()
     {
-        if(Input.GetMouseButton(0))
+        if((Input.GetMouseButton(0) && grabState == 0) || grabState == 2)
             pointerImage.color = pointerOn;
         else
         {
             pointerImage.color = pointerOff;
 
-            if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hitInfo, grabDistMax, ~0, QueryTriggerInteraction.Ignore))
+            if (grabState == 0 && Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hitInfo, grabDistMax, ~0, QueryTriggerInteraction.Ignore))
             {
                 if (hitInfo.rigidbody == null)
                     return;
@@ -230,6 +248,76 @@ public class PlayerControllerPC : MonoBehaviour
         }
 
     }
+
+    bool OnToInventory()
+    {
+        // cast a ray forward until it hits something.
+        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hitInfo, grabDistMax, ~0, QueryTriggerInteraction.Ignore))
+        {
+            if (hitInfo.rigidbody == null)
+                return false;
+
+            Grabbable p = hitInfo.rigidbody.GetComponent<Grabbable>();
+
+            if (p != null)
+            {
+                grabbedObject = p.GetComponent<Rigidbody>();
+                grabbedObject.useGravity = false;
+                grabbedObject.isKinematic = true;
+                grabbedObjectScale = grabbedObject.transform.localScale;
+                grabbedObject.transform.localScale *= 0.2f;
+                grabbedObjectParent = grabbedObject.transform.parent;
+                grabbedObject.transform.SetParent(this.camera.transform);
+                grabbedObject.transform.position = this.camera.transform.position +
+                        this.camera.transform.forward * 0.2f +
+                        this.camera.transform.right * 0.1f - 
+                        this.camera.transform.up * 0.1f;
+                grabbedObject.transform.localRotation = Quaternion.AngleAxis(180.0f, Vector3.up);
+                grabbedObject.detectCollisions = false;
+
+                // invoke any grab events.
+                p.StartGrab();
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    bool OnToHand()
+    {
+        Debug.Assert(grabbedObject != null);
+
+        float toHandDist = 3.0f;
+        if(cameraGrabAnchor == null)
+        {
+            GameObject grabAnchor = new GameObject("GrabAnchor");
+            grabAnchor.transform.SetParent(camera.transform);
+            grabAnchor.transform.position = this.camera.transform.position + this.camera.transform.forward * toHandDist;
+            cameraGrabAnchor = grabAnchor.AddComponent<Rigidbody>();
+            cameraGrabAnchor.isKinematic = true;
+            cameraGrabAnchor.mass = 10.0f;
+        }
+
+        grabbedObject.transform.SetParent(grabbedObjectParent);
+        grabbedObject.detectCollisions = true;
+        grabbedObject.transform.localScale = grabbedObjectScale;
+        if (Physics.Raycast(camera.transform.position + camera.transform.forward * 0.2f, camera.transform.forward, out RaycastHit hitInfo, toHandDist, ~0, QueryTriggerInteraction.Ignore))
+        {
+            grabbedObject.transform.position = hitInfo.point - this.camera.transform.forward * Painting.DEPTH;
+        }
+        else
+            grabbedObject.transform.position = this.camera.transform.position + this.camera.transform.forward * toHandDist;
+
+        grabbedObject.isKinematic = false;
+        grabJoint = cameraGrabAnchor.gameObject.AddComponent<ConfigurableJoint>();
+        ConfigurableJointExtensions.CustomSpringPositionRotationJointAutoPair(grabJoint,
+            grabbedObject, 300.0f, 10.0f, 100.0f, 1.0f, 100.0f);
+
+        return true;
+    }
+
     void OnGrab()
     {
         // cast a ray forward until it hits something.
@@ -265,7 +353,7 @@ public class PlayerControllerPC : MonoBehaviour
         }
     }
 
-    void OnRelease()
+    bool OnRelease()
     {
         if(grabbedObject != null)
         {
@@ -274,6 +362,8 @@ public class PlayerControllerPC : MonoBehaviour
             grabbedObject.WakeUp();
             grabbedObject = null;
         }
+
+        return true;
     }
     #endregion
 }
