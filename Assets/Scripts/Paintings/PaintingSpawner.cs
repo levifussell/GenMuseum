@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -46,7 +47,7 @@ public class PaintingSpawner : MonoBehaviour
     }
 
     /* Goal Painting */
-    Painting goalPainting = null;
+    public Painting goalPainting { get; private set; }
     int goalPaintingTriggerCount = 0;
 
     LineRenderer goalLineVisual = null;
@@ -59,6 +60,9 @@ public class PaintingSpawner : MonoBehaviour
             return _goalLineVisualMaterial;
         }
     }
+
+    public Action OnGoalPaintingEnter;
+    public Action OnGoalPaintingExit;
     #endregion
 
     #region unity methods
@@ -112,6 +116,8 @@ public class PaintingSpawner : MonoBehaviour
             goalPainting = painting;
             goalPaintingTriggerCount = 1;
             EnableGoalVisual();
+
+            OnGoalPaintingEnter?.Invoke();
         }
 
     }
@@ -136,6 +142,8 @@ public class PaintingSpawner : MonoBehaviour
         {
             goalPainting = null;
             DisableGoalVisual();
+
+            OnGoalPaintingExit?.Invoke();
         }
     }
 
@@ -144,8 +152,8 @@ public class PaintingSpawner : MonoBehaviour
     #region spawn
     private void ChoosePaintingParameters()
     {
-        spawnWidth = Random.Range(minWidth, maxWidth);
-        spawnHeight = Random.Range(minHeight, maxHeight);
+        spawnWidth = UnityEngine.Random.Range(minWidth, maxWidth);
+        spawnHeight = UnityEngine.Random.Range(minHeight, maxHeight);
     }
 
     private void CreatePaintingStand()

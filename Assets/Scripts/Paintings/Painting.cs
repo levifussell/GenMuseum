@@ -20,7 +20,7 @@ public class Painting : MonoBehaviour
     GameObject frameTop = null;
     GameObject frameBottom = null;
     GameObject painting = null;
-    RenderTexture paintingTexture = null;
+    public RenderTexture paintingTexture { get; private set; }
 
     /* generator inference */
     int generatorRenderBufferIndex = -1;
@@ -114,7 +114,6 @@ public class Painting : MonoBehaviour
         painting.transform.SetParent(this.transform);
         painting.transform.localPosition = new Vector3(0.0f, 0.0f, (DEPTH + canvasWidth) / 2.0f);
         painting.transform.localRotation = Quaternion.identity;
-        //paintRenderer.material.mainTexture = SimplePaintGenerator.Generate((int)(width * RESOLUTION), (int)(height * RESOLUTION));
 
         UnityEngine.Profiling.Profiler.EndSample();
 
