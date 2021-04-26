@@ -520,6 +520,7 @@ GameObject:
   - component: {fileID: 1967295030}
   - component: {fileID: 1967295031}
   - component: {fileID: 1967295032}
+  - component: {fileID: 1967295033}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -732,6 +733,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1967295033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967295025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3383ac3b102d6b54690711fd431e2c94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footstepPrefab: {fileID: 9035958922243378521, guid: 150eb96732b1d64409c98f3602453a93,
+    type: 3}
+  maxFootsteps: 200
+  playerController: {fileID: 1967295030}
 --- !u!1 &2063861545
 GameObject:
   m_ObjectHideFlags: 0

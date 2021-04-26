@@ -17,7 +17,7 @@ public class PhoneResponse : MonoBehaviour
 
     #region unity methods
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         audioSource = this.GetComponent<AudioSource>();
         audioSource.clip = ringAudio;

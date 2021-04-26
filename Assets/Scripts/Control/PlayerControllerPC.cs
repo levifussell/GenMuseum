@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,9 +26,26 @@ public class PlayerControllerPC : MonoBehaviour
     public Vector3 lineOfSightNormal { get => this.camera == null ? Vector3.zero : this.camera.transform.forward; }
 
     Color pointerOn = new Color(1.0f, 1.0f, 1.0f, 0.75f);
-    Color pointerOff = new Color(1.0f, 1.0f, 1.0f, 0.05f);
+    Color pointerOff = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 
+    public Action OnStepCallback;
     AudioSource audioSource;
+
+    public Vector3 playerBase
+    {
+        get
+        {
+            if (playerCollider == null)
+                return Vector3.zero;
+            else
+            {
+                return this.transform.position - new Vector3(
+                    0.0f,
+                    playerCollider.height * 0.5f * this.transform.localScale.y,
+                    0.0f);
+            }
+        }
+    }
     #endregion
 
     #region unity methods
@@ -53,7 +71,8 @@ public class PlayerControllerPC : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        StartCoroutine(Walking(0.25f));
+        //StartCoroutine(Walking(0.25f));
+        StartCoroutine(Walking(0.15f));
     }
 
     // Update is called once per frame
@@ -148,8 +167,9 @@ public class PlayerControllerPC : MonoBehaviour
             }
             else
             {
-                audioSource.pitch = Random.Range(1.0f - pitchRange, 1.0f + pitchRange);
+                audioSource.pitch = UnityEngine.Random.Range(1.0f - pitchRange, 1.0f + pitchRange);
                 audioSource.Play();
+                OnStepCallback?.Invoke();
                 yield return new WaitForSeconds(walkPeriodSeconds);
                 audioSource.Stop();
                 yield return new WaitForSeconds(walkPeriodSeconds);
