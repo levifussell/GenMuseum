@@ -99,10 +99,13 @@ public class PaintingSpawner : MonoBehaviour
 
     private void OnDisable()
     {
-        goalPainting = null;
-        goalPaintingTriggerCount = 0;
-        DisableGoalVisual();
-        OnGoalPaintingExit?.Invoke();
+        if(isPaintingGoalPoint) 
+        {
+            goalPainting = null;
+            goalPaintingTriggerCount = 0;
+            DisableGoalVisual();
+            OnGoalPaintingExit?.Invoke();
+        }
     }
 
     /* Painting Goal */
