@@ -729,7 +729,7 @@ MonoBehaviour:
   _maxWidth: 1.82
   _minHeight: 0.33
   _maxHeight: 1.28
-  spawnPaintingOnStart: 1
+  spawnPaintingOnStart: 0
   isPaintingGoalPoint: 1
 --- !u!1 &7210221258773833062
 GameObject:

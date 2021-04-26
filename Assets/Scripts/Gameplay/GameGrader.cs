@@ -14,6 +14,8 @@ public class GameGrader : MonoBehaviour
 
     public float lastScore { get; private set; }
     public int lastGrade { get; private set; }
+
+    FadeView fadeView;
     #endregion
 
     #region unity methods
@@ -43,6 +45,8 @@ public class GameGrader : MonoBehaviour
         }
 
         UpdateScoreAndGrade();
+
+        fadeView = FindObjectOfType<FadeView>();
     }
 
     // Update is called once per frame
@@ -109,8 +113,48 @@ public class GameGrader : MonoBehaviour
 
     void UpdateScoreAndGrade()
     {
-       lastScore = ComputeCompleteScore();
+        lastScore = ComputeCompleteScore();
         lastGrade = ComputeGradeFromScore(lastScore);
+
+        if(CheckGameComplete())
+        {
+            EndGame();
+        }
+    }
+
+    bool CheckGameComplete()
+    {
+        foreach(PaintingSpawner p in goalPaintSpawners)
+        {
+            if(p.goalPainting == null)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    void EndGame()
+    {
+        foreach (PaintingSpawner p in goalPaintSpawners)
+        {
+            Rigidbody r = p.goalPainting.GetComponent<Rigidbody>();
+            r.isKinematic = true;
+        }
+
+        fadeView.OnFadeInCallback += SpawnEndGameItems;
+        fadeView.FadeIn(5.0f);
+    }
+
+    void SpawnEndGameItems()
+    {
+        fadeView.OnFadeInCallback -= SpawnEndGameItems;
+        fadeView.FadeOut(1.0f);
+
+        // TODO: spawn game over items on table.
+
+        // TODO: close the back door.
     }
 
     #endregion

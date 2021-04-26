@@ -11,6 +11,7 @@ public class PlayerControllerPC : MonoBehaviour
     [SerializeField] float speedRot = 10.0f;
     [SerializeField] float mouseSensitivity = 2.0f;
     [SerializeField] Image pointerImage;
+    [SerializeField] FadeView fadeView;
     #endregion
 
     #region parameters
@@ -73,6 +74,8 @@ public class PlayerControllerPC : MonoBehaviour
 
         //StartCoroutine(Walking(0.25f));
         StartCoroutine(Walking(0.15f));
+
+        fadeView.FadeOut(1.0f);
     }
 
     // Update is called once per frame
