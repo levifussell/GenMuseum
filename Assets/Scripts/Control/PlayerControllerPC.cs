@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerControllerPC : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class PlayerControllerPC : MonoBehaviour
     [SerializeField] float speedPos = 3.0f;
     [SerializeField] float speedRot = 10.0f;
     [SerializeField] float mouseSensitivity = 2.0f;
+    [SerializeField] Image pointerImage;
     #endregion
 
     #region parameters
@@ -19,7 +21,11 @@ public class PlayerControllerPC : MonoBehaviour
     Rigidbody grabbedObject = null;
     ConfigurableJoint grabJoint = null;
 
+    float grabDistMax = 10.0f;
     public Vector3 lineOfSightNormal { get => this.camera == null ? Vector3.zero : this.camera.transform.forward; }
+
+    Color pointerOn = new Color(1.0f, 1.0f, 1.0f, 0.75f);
+    Color pointerOff = new Color(1.0f, 1.0f, 1.0f, 0.05f);
     #endregion
 
     #region unity methods
@@ -104,6 +110,9 @@ public class PlayerControllerPC : MonoBehaviour
         }
 
         // grabbing.
+
+        CheckPointerForGrabbable();
+
         if (Input.GetMouseButtonDown(0))
             OnGrab();
         if (Input.GetMouseButtonUp(0))
@@ -118,16 +127,30 @@ public class PlayerControllerPC : MonoBehaviour
     #endregion
 
     #region grabbing
+    void CheckPointerForGrabbable()
+    {
+        pointerImage.color = pointerOff;
+
+        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hitInfo, grabDistMax, ~0, QueryTriggerInteraction.Ignore))
+        {
+            if (hitInfo.rigidbody == null)
+                return;
+
+            Grabbable p = hitInfo.rigidbody.GetComponent<Grabbable>();
+
+            if (p != null) { pointerImage.color = pointerOn; }
+        }
+
+    }
     void OnGrab()
     {
-        float grabDistMax = 10.0f;
         // cast a ray forward until it hits something.
         if(Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hitInfo, grabDistMax, ~0, QueryTriggerInteraction.Ignore))
         {
             if (hitInfo.rigidbody == null)
                 return;
 
-            Painting p = hitInfo.rigidbody.GetComponent<Painting>();
+            Grabbable p = hitInfo.rigidbody.GetComponent<Grabbable>();
 
             if(p != null)
             {

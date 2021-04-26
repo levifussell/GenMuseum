@@ -52,6 +52,7 @@ public class Painting : MonoBehaviour
         if(baseObject == null)
         {
             baseObject = new GameObject("painting");
+            baseObject.AddComponent<Grabbable>();
             baseObjectPainting = baseObject.AddComponent<Painting>();
 
             baseObject.AddComponent<Rigidbody>();
