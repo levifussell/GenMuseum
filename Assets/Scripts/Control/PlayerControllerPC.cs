@@ -254,7 +254,7 @@ public class PlayerControllerPC : MonoBehaviour
         // cast a ray forward until it hits something.
         if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hitInfo, grabDistMax, ~0, QueryTriggerInteraction.Ignore))
         {
-            if (hitInfo.rigidbody == null)
+            if (hitInfo.rigidbody == null || hitInfo.rigidbody.isKinematic)
                 return false;
 
             Grabbable p = hitInfo.rigidbody.GetComponent<Grabbable>();
@@ -265,14 +265,16 @@ public class PlayerControllerPC : MonoBehaviour
                 grabbedObject.useGravity = false;
                 grabbedObject.isKinematic = true;
                 grabbedObjectScale = grabbedObject.transform.localScale;
-                grabbedObject.transform.localScale *= 0.2f;
+                grabbedObject.transform.localScale *= 0.2f * p.inventoryScaleCorrection;
                 grabbedObjectParent = grabbedObject.transform.parent;
                 grabbedObject.transform.SetParent(this.camera.transform);
                 grabbedObject.transform.position = this.camera.transform.position +
                         this.camera.transform.forward * 0.2f +
-                        this.camera.transform.right * 0.1f - 
+                        this.camera.transform.right * 0.1f -
                         this.camera.transform.up * 0.1f;
-                grabbedObject.transform.localRotation = Quaternion.AngleAxis(180.0f, Vector3.up);
+                grabbedObject.transform.localPosition += p.inventoryPositionOffset;
+                grabbedObject.transform.localRotation = Quaternion.AngleAxis(180.0f, Vector3.up) * Quaternion.AngleAxis(p.inventoryRotationOffset.x, new Vector3(
+                    p.inventoryRotationOffset.y, p.inventoryRotationOffset.z, p.inventoryRotationOffset.w));
                 grabbedObject.detectCollisions = false;
 
                 // invoke any grab events.

@@ -9,6 +9,7 @@ using UnityEditor;
 public class GameGrader : MonoBehaviour
 {
     #region serialized paramters
+    [SerializeField] GameObject[] gradeLetters;
     #endregion
 
     #region parameters
@@ -22,12 +23,16 @@ public class GameGrader : MonoBehaviour
     FadeView fadeView;
 
     GameObject[] endItems = null;
+
+    bool gameOver = false;
     #endregion
 
     #region unity methods
     // Start is called before the first frame update
     IEnumerator Start()
     {
+        Debug.Assert(gradeLetters.Length == 7);
+
         GenerationManager generationManager = FindObjectOfType<GenerationManager>(); 
         while(true)
         {
@@ -129,7 +134,7 @@ public class GameGrader : MonoBehaviour
         lastScore = ComputeCompleteScore();
         lastGrade = ComputeGradeFromScore(lastScore);
 
-        if(CheckGameComplete())
+        if(CheckGameComplete() && !gameOver)
         {
             EndGame();
         }
@@ -150,6 +155,8 @@ public class GameGrader : MonoBehaviour
 
     void EndGame()
     {
+        gameOver = true;
+
         foreach (PaintingSpawner p in goalPaintSpawners)
         {
             Rigidbody r = p.goalPainting.GetComponent<Rigidbody>();
@@ -173,7 +180,9 @@ public class GameGrader : MonoBehaviour
             g.SetActive(true);
         }
 
-        // TODO: close the back door.
+        // spawn grade in front of player.
+        GameObject grade = GameObject.Instantiate(gradeLetters[lastGrade]);
+        grade.transform.position = player.transform.position + player.transform.forward * 2.0f + player.transform.up * 1.0f;
     }
 
     #endregion

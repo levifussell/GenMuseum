@@ -5,9 +5,15 @@ using UnityEngine;
 
 public class Grabbable : MonoBehaviour
 {
+    #region serialized parameters
+    [SerializeField] public Vector3 inventoryPositionOffset = Vector3.zero;
+    [SerializeField] public Vector4 inventoryRotationOffset = Vector3.zero;
+    [SerializeField] public float inventoryScaleCorrection = 1.0f;
+    #endregion
 
     #region parameters
     public Action<Grabbable> OnGrabbedCallback;
+
 
     //AudioSource audioSource;
     //static AudioClip _hitClip = null;

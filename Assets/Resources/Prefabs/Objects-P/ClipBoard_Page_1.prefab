@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4475443949234812141}
   - component: {fileID: -363965850291386009}
   - component: {fileID: 3874440118699511827}
+  - component: {fileID: 2503610532669134471}
   m_Layer: 0
   m_Name: ClipBoard_Page_1
   m_TagString: Untagged
@@ -27,13 +28,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2673736298663007544}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: -0.5000008, y: -0.49999925, z: -0.49999928, w: 0.5000007}
   m_LocalPosition: {x: -1.3812584, y: 0.9559287, z: -2.8448575}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: -90.00001}
 --- !u!33 &1873233316247699495
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -112,3 +113,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.005037308, y: 0.0027170684, z: 0.00030276732}
   m_Center: {x: -0.00006782985, y: -0.00004135677, z: 0.000045517925}
+--- !u!114 &2503610532669134471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2673736298663007544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f389e58593ebf634a98924f0841d4463, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryPositionOffset: {x: 0, y: 0.1, z: 0.35}
+  inventoryRotationOffset: {x: -90, y: 0, z: 0, w: 1}
+  inventoryScaleCorrection: 3

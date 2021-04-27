@@ -622,6 +622,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdbe9f2f8e42f3243a51c147da65a9f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gradeLetters:
+  - {fileID: 7499423630052644377, guid: a387a8a68eaf3ad4eaa1667ca4c317ae, type: 3}
+  - {fileID: 4575922785570679099, guid: 527dabe666386b04f84ac1cb92d6a9f0, type: 3}
+  - {fileID: 4621686113037086246, guid: 6277bd29e8031904da3f414b4d4507f0, type: 3}
+  - {fileID: 1229791331736815, guid: 257f0db58df0b8046a081c9203db0dfb, type: 3}
+  - {fileID: 5887298095793784331, guid: 809bb3eedb8cc744ea668368f75aff8c, type: 3}
+  - {fileID: 3993149825906112356, guid: 9199e38adb4d6c14eaf2ca11ce0358c3, type: 3}
+  - {fileID: 3130961789041290193, guid: 18fa150208ec0bd4eae6eec05001caa0, type: 3}
 --- !u!4 &1507933102
 Transform:
   m_ObjectHideFlags: 0
