@@ -3,7 +3,7 @@
 You’re in charge of curating for tonight’s art show and you only just started working at the gallery. It probably doesn’t help that this place just seems to get deeper and deeper. 
 Well, what are you waiting for? Head on back, and grab some paintings for tonight’s show! Remember… just don’t get lost…
 
-https://www.youtube.com/watch?v=mAFM4sTPE2Q
+[![](https://img.youtube.com/vi/mAFM4sTPE2Q/maxresdefault.jpg)](https://www.youtube.com/watch?v=mAFM4sTPE2Q)
 
 
 **AI Generated Art:**
