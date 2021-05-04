@@ -119,7 +119,7 @@ public class PaintingSpawner : MonoBehaviour
             return;
 
         Painting painting = other.GetComponentInParent<Painting>();
-        if (painting == null)
+        if (painting == null || goalPainting != null)
             return;
 
         // need to check for multiple triggers of same painting.

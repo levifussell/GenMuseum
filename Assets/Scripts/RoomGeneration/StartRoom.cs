@@ -16,7 +16,7 @@ public class StartRoom : Room
     GameObject startRoomStorage;
     public bool isStartRoom { get; private set; }
 
-    private List<Rigidbody> objectsInRoom = new List<Rigidbody>();
+    public List<Rigidbody> objectsInRoom = new List<Rigidbody>();
     public int objectCountInRoom { get => objectsInRoom.Count; }
 
     PlayerControllerPC player;
@@ -110,14 +110,16 @@ public class StartRoom : Room
     {
         isStartRoom = false;
         startRoomParent.SetActive(false);
-        normalRoomParent.SetActive(true);
 
         OnStartRoomChange?.Invoke();
 
         foreach(Rigidbody r in objectsInRoom)
         {
+            r.constraints = RigidbodyConstraints.FreezeAll;
             r.gameObject.SetActive(false);
         }
+
+        normalRoomParent.SetActive(true);
     }
 
     void ChangeToStartRoom()
@@ -130,6 +132,7 @@ public class StartRoom : Room
 
         foreach(Rigidbody r in objectsInRoom)
         {
+            r.constraints = RigidbodyConstraints.None;
             r.gameObject.SetActive(true);
         }
     }

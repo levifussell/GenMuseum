@@ -15,7 +15,7 @@ public class PlayerControllerPC : MonoBehaviour
     #endregion
 
     #region parameters
-    Camera camera;
+    public Camera camera { get; private set; }
     Rigidbody rigidbody;
     CapsuleCollider playerCollider;
 
@@ -177,8 +177,13 @@ public class PlayerControllerPC : MonoBehaviour
         //    OnRelease();
 
         // teleporting
+
         if (Input.GetKeyDown(KeyCode.T))
             Respawn();
+
+        // quiting
+        if (Input.GetKeyDown(KeyCode.Q))
+            Application.Quit();
     }
 
     private void OnDrawGizmos()
@@ -218,7 +223,14 @@ public class PlayerControllerPC : MonoBehaviour
     #region respawning
     public void Respawn()
     {
+        if(grabState == 1)
+        {
+            OnToHand();
+        }
+
         OnRelease();
+        grabState = 0;
+
         this.transform.position = this.playerSpawnPosition;
         this.transform.rotation = this.playerSpawnOrientation;
         fadeView.FadeOut(1.0f);

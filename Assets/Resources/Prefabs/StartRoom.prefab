@@ -185,7 +185,7 @@ MonoBehaviour:
   _maxWidth: 1.82
   _minHeight: 0.33
   _maxHeight: 2.79
-  spawnPaintingOnStart: 1
+  spawnPaintingOnStart: 0
   isPaintingGoalPoint: 1
 --- !u!1 &1604407519370779090
 GameObject:
@@ -357,7 +357,7 @@ MonoBehaviour:
   _maxWidth: 1.82
   _minHeight: 0.33
   _maxHeight: 1.03
-  spawnPaintingOnStart: 1
+  spawnPaintingOnStart: 0
   isPaintingGoalPoint: 1
 --- !u!1 &2419112005148409064
 GameObject:
@@ -406,7 +406,7 @@ MonoBehaviour:
   _maxWidth: 1.82
   _minHeight: 0.33
   _maxHeight: 1.03
-  spawnPaintingOnStart: 1
+  spawnPaintingOnStart: 0
   isPaintingGoalPoint: 1
 --- !u!1 &2680545492212682125
 GameObject:
@@ -635,7 +635,7 @@ MonoBehaviour:
   _maxWidth: 1.82
   _minHeight: 0.33
   _maxHeight: 1.28
-  spawnPaintingOnStart: 1
+  spawnPaintingOnStart: 0
   isPaintingGoalPoint: 1
 --- !u!1 &6494365466542919924
 GameObject:
@@ -823,7 +823,7 @@ MonoBehaviour:
   _maxWidth: 1.82
   _minHeight: 0.33
   _maxHeight: 2.79
-  spawnPaintingOnStart: 1
+  spawnPaintingOnStart: 0
   isPaintingGoalPoint: 1
 --- !u!1 &7969035094664922850
 GameObject:

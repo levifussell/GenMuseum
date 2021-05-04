@@ -113,3 +113,5 @@ OVR*.asset*
 
 # OTHER.
 ProjectSettings/EditorBuildSettings.asset
+Arterial_v1/*
+Arterial_v1.zip

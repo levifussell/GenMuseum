@@ -78,6 +78,8 @@ public class Chunk : MonoBehaviour
     public Room[,] rooms = new Room[ChunkData.ROOMS_PER_CHUNK_DIM, ChunkData.ROOMS_PER_CHUNK_DIM];
 
     private PaintingSpawner[] paintingSpawnersInChunk;
+
+    private StartRoom startRoom = null;
     #endregion
 
     #region unity methods
@@ -114,6 +116,10 @@ public class Chunk : MonoBehaviour
     {
         foreach(Rigidbody r in objectsInChunk)
         {
+            if (startRoom != null && startRoom.objectsInRoom.Contains(r))
+                continue;
+
+            r.constraints = RigidbodyConstraints.FreezeAll;
             r.gameObject.SetActive(false);
         }
 
@@ -123,6 +129,10 @@ public class Chunk : MonoBehaviour
     {
         foreach(Rigidbody r in objectsInChunk)
         {
+            if (startRoom != null && startRoom.objectsInRoom.Contains(r))
+                continue;
+
+            r.constraints = RigidbodyConstraints.None;
             r.gameObject.SetActive(true);
         }
 
@@ -148,7 +158,8 @@ public class Chunk : MonoBehaviour
                 if(ChunkPos == Vector3Int.zero && x == 0 && y == 0)
                 {
                     roomXY = GameObject.Instantiate(ChunkData.startRoomPrefab);
-                    chunk.rooms[x, y] = roomXY.AddOrGetComponent<StartRoom>();        
+                    chunk.startRoom = roomXY.AddOrGetComponent<StartRoom>();
+                    chunk.rooms[x, y] = chunk.startRoom;
                 }
                 // normal room.
                 else

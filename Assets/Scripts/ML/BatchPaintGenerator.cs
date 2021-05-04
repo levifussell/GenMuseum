@@ -33,8 +33,9 @@ public class _BatchPaintGenerator : MonoBehaviour
         m_runtimeModel = ModelLoader.Load(modelAsset);
         //m_worker = WorkerFactory.CreateWorker(WorkerFactory.Type.ComputePrecompiled, m_runtimeModel);
         m_worker = WorkerFactory.CreateWorker(WorkerFactory.Type.Compute, m_runtimeModel);
+        //m_worker = WorkerFactory.CreateWorker(WorkerFactory.Type.CSharpRef, m_runtimeModel);
 
-        for(int i = 0; i < BATCH_SIZE; ++i)
+        for (int i = 0; i < BATCH_SIZE; ++i)
         {
             m_textureBuffer[i] = new RenderTexture(IMAGE_RES, IMAGE_RES, 3);
             m_textureBuffer[i].filterMode = FilterMode.Bilinear;
@@ -46,6 +47,8 @@ public class _BatchPaintGenerator : MonoBehaviour
 
     private void OnDestroy()
     {
+        m_worker?.Dispose();
+
         for(int i = 0; i < BATCH_SIZE; ++i)
         {
             m_textureBuffer[i].Release();

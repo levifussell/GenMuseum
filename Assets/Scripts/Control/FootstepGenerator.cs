@@ -68,6 +68,7 @@ public class FootstepGenerator : MonoBehaviour
             Footstep footstep;
             footstep.gameObject = GameObject.Instantiate(footstepPrefab);
             footstep.gameObject.transform.position = NoisyForwardFootstep(FootstepPositionProjectedFrom(playerController.playerBase));
+            //footstep.gameObject.transform.rotation *= Quaternion.AngleAxis(this.playerController.transform.rotation.y, Vector3.up);
             footstep.material = footstep.gameObject.GetComponent<Renderer>().material;
             footstepQueue.Enqueue(footstep);
         }
@@ -77,6 +78,7 @@ public class FootstepGenerator : MonoBehaviour
         {
             Footstep oldest = footstepQueue.Dequeue();
             oldest.gameObject.transform.position = NoisyForwardFootstep(FootstepPositionProjectedFrom(playerController.playerBase));
+            //oldest.gameObject.transform.rotation *= Quaternion.AngleAxis(this.playerController.transform.rotation.y, Vector3.up);
             footstepQueue.Enqueue(oldest);
         }
 
